@@ -1,0 +1,41 @@
+<ng-container *ngIf="!item.hidden">
+  <!-- Internal Link -->
+  <li *ngIf="item.url && !item.external"
+      [ngClass]="item.classes"
+      routerLinkActive="active">
+    <a class="nav-link"
+       [target]="item.target ? '_blank' : '_self'"
+       [routerLink]="[item.url]"
+       (click)="closeOtherMenu($event)">
+      <ng-container *ngTemplateOutlet="itemIcon"></ng-container>
+      <span *ngIf="item.icon; else directTitle" class="pcoded-mtext">
+        {{ item.title }}
+      </span>
+      <ng-template #directTitle>
+        {{ item.title }}
+      </ng-template>
+    </a>
+  </li>
+
+  <!-- External Link -->
+  <li *ngIf="item.url && item.external"
+      [ngClass]="item.classes">
+    <a [target]="item.target ? '_blank' : '_self'"
+       [href]="item.url">
+      <ng-container *ngTemplateOutlet="itemIcon"></ng-container>
+      <span *ngIf="item.icon; else directTitle" class="pcoded-mtext">
+        {{ item.title }}
+      </span>
+      <ng-template #directTitle>
+        {{ item.title }}
+      </ng-template>
+    </a>
+  </li>
+
+  <!-- Icon Template -->
+  <ng-template #itemIcon>
+    <span *ngIf="item.icon" class="pcoded-micon">
+      <i class="feather" [ngClass]="item.icon"></i>
+    </span>
+  </ng-template>
+</ng-container>

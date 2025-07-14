@@ -1,0 +1,41 @@
+@if (!item().hidden) {
+  <li
+    class="nav-item pcoded-hasmenu"
+    [routerLinkActive]="['active']"
+    data-username="dashboard Default Ecommerce CRM Analytics Crypto Project"
+  >
+    <a href="javascript:" class="nav-link" (click)="navCollapse($event)" [routerLinkActive]="['active']">
+      <ng-container *ngTemplateOutlet="itemContent"></ng-container>
+    </a>
+
+    <ng-container *ngTemplateOutlet="subMenuContent"></ng-container>
+  </li>
+
+  <ng-template #itemContent>
+    @if (item().icon) {
+      <span class="pcoded-micon">
+        <i class="{{ item().icon }}"></i>
+      </span>
+    }
+    <span class="pcoded-mtext">
+      {{ item().title }}
+    </span>
+  </ng-template>
+
+  <ng-template #subMenuContent>
+    <ul
+      class="pcoded-submenu"
+      *ngIf="item().children?.length ?? 0"
+      [routerLinkActive]="['active']"
+    >
+      @for (child of item().children ?? []; track child.title) {
+        @if (child.type === 'item') {
+          <app-nav-item [item]="child" />
+        }
+        @if (child.type === 'collapse') {
+          <app-nav-collapse [item]="child" />
+        }
+      }
+    </ul>
+  </ng-template>
+}

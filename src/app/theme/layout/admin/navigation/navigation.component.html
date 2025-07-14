@@ -1,0 +1,10 @@
+<!-- vertical layouts -->
+<ng-scrollbar style="height: calc(100vh - 70px)" exclude="'#mobile-collapse1'" visibility="hover">
+  <div class="navbar-content">
+    <ul class="nav pcoded-inner-navbar" (clickOutside)="fireOutClick()">
+      <ng-container *ngFor="let item of navigations; trackBy: trackByFn">
+        <app-nav-group *ngIf="item.type === 'group'" [item]="item" />
+      </ng-container>
+    </ul>
+  </div>
+</ng-scrollbar>

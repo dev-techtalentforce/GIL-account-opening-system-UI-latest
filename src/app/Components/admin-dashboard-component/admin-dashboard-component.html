@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Agent List</h5>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-agent-list">
+                        <tr>
+                            <th>User ID</th>
+                            <th>First Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for ( agent of rowData; track agent.userId) {
+                        <tr>
+                            <td>{{ agent.userId }}</td>
+                            <td>{{ agent.firstName }}</td>
+                            <td>{{ agent.email }}</td>
+                            <td>{{ agent.mobile }}</td>
+                            <td>{{ agent.isActive ? 'Active' : 'Inactive' }}</td>
+                            <td>{{ agent.createdAt | date: 'MM/dd/yyyy, hh:mm a' }}</td>
+                            <td>
+                                <!-- app.component.html -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton-{{ agent.userId }}" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        <ul class="dropdown-menu"
+                                            [attr.aria-labelledby]="'dropdownMenuButton-' + agent.userId">
+                                            <li><button class="dropdown-item" (click)="onApprove(agent.userId)">✅
+                                                    Approve</button></li>
+                                            <li><button class="dropdown-item" (click)="onReject(agent.userId)">❌
+                                                    Reject</button></li>
+                                            <li>
+                                                <button class="dropdown-item" (click)="onBlockToggle(agent)">
+                                                    {{ agent.blockStatus === 0 ? '🔓 Unblock' : '🔒 Block' }}
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<div class="auth-wrapper">
+  <div class="auth-content" style="width: 30%">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-4">
+          <i class="feather icon-user-plus auth-icon"></i>
+        </div>
+        <h3 class="mb-4">Agent Registration</h3>
+
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-control"
+              placeholder="Enter first name"
+            />
+            <div class="text-danger" *ngIf="submitted && f.firstName.errors">
+              <div *ngIf="f.firstName.errors['required']">First name is required</div>
+              <div *ngIf="f.firstName.errors['minlength']">Minimum 2 characters required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+              placeholder="Enter last name"
+            />
+            <div class="text-danger" *ngIf="submitted && f.lastName.errors">
+              <div *ngIf="f.lastName.errors['required']">Last name is required</div>
+              <div *ngIf="f.lastName.errors['minlength']">Minimum 2 characters required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="panCard"
+              class="form-control"
+              placeholder="Enter Pancard"
+            />
+            <div class="text-danger" *ngIf="submitted && f.panCard.errors">
+              <div *ngIf="f.panCard.errors['required']">Pancard is required</div>
+              <div *ngIf="f.panCard.errors['pattern']">Invalid PAN format</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Email"
+            />
+            <div class="text-danger" *ngIf="submitted && f.email.errors">
+              <div *ngIf="f.email.errors['required']">Email is required</div>
+              <div *ngIf="f.email.errors['email']">Invalid email address</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="mobile"
+              class="form-control"
+              placeholder="Mobile Number"
+              maxlength="10"
+            />
+            <div class="text-danger" *ngIf="submitted && f.mobile.errors">
+              <div *ngIf="f.mobile.errors['required']">Mobile number is required</div>
+              <div *ngIf="f.mobile.errors['pattern']">Enter a valid 10-digit mobile number</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              formControlName="referralCode"
+              class="form-control"
+              placeholder="Referral Code"
+              maxlength="10"
+            />
+          </div>
+
+          <div class="form-group">
+            <textarea
+              formControlName="address"
+              class="form-control"
+              placeholder="Enter Address"
+              maxlength="100"
+            ></textarea>
+            <div class="text-danger" *ngIf="submitted && f.address.errors">
+              <div *ngIf="f.address.errors['required']">Address is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              placeholder="Password"
+            />
+            <div class="text-danger" *ngIf="submitted && f.password.errors">
+              <div *ngIf="f.password.errors['required']">Password is required</div>
+              <div *ngIf="f.password.errors['minlength']">Minimum 6 characters required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="form-control"
+              placeholder="Confirm Password"
+            />
+            <div class="text-danger" *ngIf="submitted && f.confirmPassword.errors">
+              <div *ngIf="f.confirmPassword.errors['required']">Confirm Password is required</div>
+            </div>
+            <div class="text-danger" *ngIf="submitted && registrationForm.errors?.['mismatch']">
+              Passwords do not match
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary shadow-2 mb-4">Register</button>
+
+          <p class="mb-0 text-muted">
+            Already have an account?
+            <a [routerLink]="['/login']">Log in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+
+@import './assets/scss/variables';
+
+/* fonts-icon */
+@import './assets/scss/fonts/fontawesome/scss/fontawesome';
+@import './assets/scss/fonts/feather/iconfont';
+
+@import './assets/scss/general';
+@import './assets/scss/generic';
+@import './assets/scss/mixins/function';
+
+/* import./assets/ant element */
+@import './assets/scss/menu/pc-footer.scss';
+@import './assets/scss/menu/menu-lite';
+
+/* basic ./assets/elements */
+@import './assets/scss/theme-elements/theme-elements';
+
+/* third ./assets/party modules style*/
+@import './assets/scss/plugins/plugins';
+
+@import './assets/scss/custom';
+
+form {
+  input.ng-invalid.ng-touched {
+    border-color: #dc3545;
+  }
+}
+
+.checkbox-css {
+  width: 4.5em !important;
+  height: 2.8em !important;
+  margin-top: 0;
+}

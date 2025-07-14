@@ -1,0 +1,102 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="feather icon-unlock auth-icon"></i>
+        </div>
+        <h4 class="mb-3">Login</h4>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                formControlName="email"
+              />
+            </div>
+            <div class="col-auto">
+              <span id="passwordHelpInline" class="text-start text-danger">
+                @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginFormSubmitted)) {
+                  <div class="m-l-5">Email is required</div>
+                }
+                @if (loginForm.get('email')?.errors?.['email']) {
+                  <div class="m-l-5">Invalid email address</div>
+                }
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                formControlName="password"
+              />
+            </div>
+            <div class="col-auto">
+              <span id="passwordHelpInline" class="text-start text-danger">
+                @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginFormSubmitted)) {
+                  <div class="m-l-5">Password is required</div>
+                }
+              </span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">Login</button>
+        </form>
+        <p class="mb-2 text-muted">
+          Forgot password?
+          <a style="cursor: pointer" (click)="openForgotPassword()">Reset</a>
+        </p>
+        <p class="mb-0 text-muted">
+          Don’t have an account?
+          <a [routerLink]="['/register']">Register</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Forgot Password Modal Template -->
+<ng-template #forgotPasswordModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Forgot Password</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPassword(modal)">
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="input-group">
+          <input
+            type="email"
+            id="forgotEmail"
+            formControlName="forgotEmail"
+            class="form-control"
+          />
+        </div>
+        <div class="col-auto">
+          <span class="text-start text-danger">
+            @if (forgotPasswordForm.get('forgotEmail')?.invalid && (forgotPasswordForm.get('forgotEmail')?.touched || forgotSubmitted)) {
+              <div class="m-l-5">Email is required</div>
+            }
+            @if (forgotPasswordForm.get('forgotEmail')?.errors?.['invalidEmail']) {
+              <div class="m-l-5">Invalid email address</div>
+            }
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" [disabled]="forgotPasswordForm.invalid" class="btn btn-primary">Send Reset Link</button>
+    </div>
+  </form>
+</ng-template>

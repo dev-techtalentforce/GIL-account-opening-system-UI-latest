@@ -1,0 +1,35 @@
+<header>
+  <div class="m-header" [style.display]="headerStyle">
+    <a class="mobile-menu" id="mobile-collapse1" href="javascript:void(0)" (click)="NavCollapsedMob.emit()">
+      <span></span>
+    </a>
+    <a [routerLink]="['/dashboard/default']" class="b-brand">
+      <div class="b-bg">
+        <i class="feather icon-trending-up"></i>
+      </div>
+      <span class="b-title">GAOS</span>
+    </a>
+  </div>
+
+  <a
+    class="mobile-menu"
+    [ngClass]="{ on: menuClass }"
+    id="mobile-header"
+    href="javascript:void(0)"
+    (click)="toggleMobOption()"
+  >
+    <i class="feather icon-more-horizontal"></i>
+  </a>
+
+  <div class="collapse navbar-collapse px-4" [style.display]="collapseStyle">
+    <app-nav-left class="me-auto" [style.display]="headerStyle" />
+    <app-nav-right class="ms-auto" />
+  </div>
+</header>
+
+<div
+  class="pc-menu-overlay"
+  (click)="closeMenu()"
+  (keydown)="handleKeyDown($event)"
+  tabindex="0"
+></div>
