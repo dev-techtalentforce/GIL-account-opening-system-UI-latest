@@ -1,0 +1,39 @@
+{
+    "name": "@types/screenfull",
+    "version": "4.0.0",
+    "description": "TypeScript definitions for screenfull.js",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Ilia Choly",
+            "url": "https://github.com/icholy",
+            "githubUsername": "icholy"
+        },
+        {
+            "name": "lionelb",
+            "url": "https://github.com/lionelb",
+            "githubUsername": "lionelb"
+        },
+        {
+            "name": "Joel Shepherd",
+            "url": "https://github.com/joelshepherd",
+            "githubUsername": "joelshepherd"
+        },
+        {
+            "name": "BendingBender",
+            "url": "https://github.com/BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ],
+    "main": "",
+    "types": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/screenfull"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "5c0bfcfb39e1d515255ab50de61965369b6380ae4e2a4e6acb9fc5f6a623c470",
+    "typeScriptVersion": "2.5"
+}
