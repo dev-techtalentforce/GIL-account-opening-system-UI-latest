@@ -32,6 +32,22 @@ export const routes: Routes = [
                 path: 'dashboard',
                 loadComponent: () => import('./Components/admin-dashboard-component/admin-dashboard-component').then((c) => c.AdminDashboardComponent),
             },
+            {
+                path: 'agent-dashboard',
+                loadComponent: () => import('./Components/agent-dashboard-component/agent-dashboard-component').then((c) => c.AgentDashboardComponent),
+            },
+            {
+              path:'add-balance',
+                loadComponent: () => import('./Components/add-balance/add-balance').then((c) => c.AddBalance),
+            },
+            {
+              path:'agentRegistration',
+                loadComponent: () => import('./Components/account-open-component/account-open-component').then((c) => c.AccountOpenComponent),
+            },
+            {
+              path:'payment-checkout',
+                loadComponent: () => import('./Components/razorpay-checkout/razorpay-checkout').then((c) => c.RazorpayCheckout),
+            }
         ],
       },
   {

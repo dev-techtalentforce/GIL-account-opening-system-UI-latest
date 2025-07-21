@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, Location, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavigationItem } from '../../navigation';
 import { SharedModule } from '../../../../../shared/shared.module';
@@ -7,7 +7,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 @Component({
   selector: 'app-nav-item',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule, RouterModule,NgIf],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })

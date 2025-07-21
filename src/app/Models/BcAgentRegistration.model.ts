@@ -1,0 +1,49 @@
+export interface BcAgentRegistration {
+  channelid: string;
+  appid: string;
+  partnerid: string;
+  bcid: string;
+  bcagentid: string;
+  bcagentname: string;
+  middlename: string;
+  lastname: string;
+  companyname: string;
+  address: string;
+  statename: string;
+  cityname: string;
+  district: string;
+  area: string;
+  pincode: string;
+  mobilenumber: string;
+  telephone: string;
+  alternatenumber: string;
+  emailid: string;
+  dob: string;
+  shopaddress: string;
+  shopstate: string;
+  shopcity: string;
+  shopdistrict: string;
+  shoparea: string;
+  shoppincode: string;
+  pancard: string;
+  bcagentform: string;
+  productdetails: {
+    dmt: boolean;
+    aeps: boolean;
+    cardpin: boolean;
+    accountopen: boolean;
+  };
+  terminaldetails: {
+    tposserialno: string;
+    taddress: string;
+    taddress1: string;
+    tpincode: string;
+    tcity: string;
+    tstate: string;
+    temail: string;
+  };
+  agenttype: string;
+  agentbcid: string;
+  token: string;
+  signcs: string;
+}

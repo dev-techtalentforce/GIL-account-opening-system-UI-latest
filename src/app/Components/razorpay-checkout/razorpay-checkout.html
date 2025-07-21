@@ -1,0 +1,48 @@
+<form [formGroup]="checkoutForm" class="checkout-form p-4 shadow rounded bg-white" (ngSubmit)="onSubmit()">
+  <h4 class="mb-4 text-center text-primary">Checkout Details</h4>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Amount <span class="text-danger">*</span></label>
+      <input type="number" class="form-control" formControlName="amount" placeholder="Enter amount" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Business ID</label>
+      <input type="number" class="form-control" formControlName="businessID" placeholder="Enter business ID" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Plan ID</label>
+      <input type="number" class="form-control" formControlName="planID" placeholder="Enter plan ID" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Receipt</label>
+      <input type="text" class="form-control" formControlName="receipt" placeholder="Enter receipt ID" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Order ID</label>
+      <input type="text" class="form-control" formControlName="orderID" placeholder="Generated order ID" readonly />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Transaction ID</label>
+      <input type="text" class="form-control" formControlName="transID" placeholder="Transaction ID from Razorpay" />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Payment Status</label>
+      <select class="form-select" formControlName="paymentStatus">
+        <option value="Success">Success</option>
+        <option value="Failed">Failed</option>
+        <option value="Pending">Pending</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-4 text-center">
+    <button type="submit" class="btn btn-primary w-50">Submit</button>
+  </div>
+</form>

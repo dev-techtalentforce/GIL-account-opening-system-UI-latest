@@ -83,4 +83,126 @@ login(credentials: { email: string; password: string }): Observable<LoginRespons
     this.router.navigateByUrl('/login');
   }
 
+
+
+
+    // login(credentials: { email: string; password: string }): Observable<{ token: string; user: { role: string } }> {
+  //   const apiUrl = `${this.host}/auth/login`;
+  //   return this.http.post<{ token: string; user: { role: string } }>(apiUrl, credentials).pipe(
+  //     tap((response: { token: string; user: { role: string } }) => {
+  //       // decode the token if necessary
+  //       localStorage.setItem(this.tokenKey, JSON.stringify(response.token));
+  //       localStorage.setItem(
+  //         this.userKey,
+  //         JSON.stringify({
+  //           agentId: this.getUserRole().AgentId,
+  //           id: this.getUserRole().UserId,
+  //           role: this.getUserRole().Role.toLowerCase(),
+  //           email: this.getUserRole().Email,
+  //           firstName: this.getUserRole().given_name,
+  //           lastName: this.getUserRole().family_name
+  //         })
+  //       );
+  //       console.log(this.getUserRole());
+  //       this.loggedIn.next(true);
+  //     })
+  //   );
+  // }
+
+//   login(credentials: { email: string; password: string }): Observable<{ token: string; user: any }> {
+//   const fakeAdminToken = 'admin.jwt.token';
+//   const fakeAgentToken = 'agent.jwt.token';
+
+//   const userData =
+//     credentials.email === 'admin@gmail.com' && credentials.password === 'admin123'
+//       ? {
+//           token: fakeAdminToken,
+//           user: {
+//             Role: 'Admin',
+//             UserId: 1,
+//             Email: 'admin@gil.com',
+//             given_name: 'Admin',
+//             family_name: 'User',
+//             AgentId: null
+//           }
+//         }
+//       : credentials.email === 'agent@gmail.com' && credentials.password === 'agent123'
+//       ? {
+//           token: fakeAgentToken,
+//           user: {
+//             Role: 'Agent',
+//             UserId: 2,
+//             Email: 'agent@gil.com',
+//             given_name: 'Agent',
+//             family_name: 'User',
+//             AgentId: 1001
+//           }
+//         }
+//       : null;
+
+//   if (userData) {
+//     localStorage.setItem(this.tokenKey, JSON.stringify(userData.token));
+//     localStorage.setItem(this.userKey, JSON.stringify(userData.user));
+//     this.loggedIn.next(true);
+//     return new Observable((observer) => {
+//       observer.next(userData);
+//       observer.complete();
+//     });
+//   } else {
+//     return new Observable((observer) => {
+//       observer.error({ error: { detail: 'Invalid username or password' } });
+//     });
+//   }
+// }
+
+//   logout(): void {
+//     localStorage.removeItem(this.tokenKey);
+//     localStorage.removeItem(this.userKey);
+//     this.loggedIn.next(false);
+//     this.router.navigate(['/login']);
+//   }
+
+//   isLoggedIn(): Observable<boolean> {
+//     return this.loggedIn.asObservable();
+//   }
+
+//   getToken(): string | null {
+//     return JSON.parse(localStorage.getItem(this.tokenKey));
+//   }
+
+//   removeToken(): void {
+//     localStorage.removeItem(this.tokenKey);
+//     localStorage.removeItem(this.userKey);
+//   }
+
+//   getUserRole(): TokenModel | null {
+//     const token = this.getToken();
+//     if (token) {
+//       try {
+//         const user: TokenModel = Object(decodeJWT(token));
+//         return user;
+//       } catch (error) {
+//         console.error('Error decoding token', error);
+//         return null;
+//       }
+//     }
+//     return JSON.parse(localStorage.getItem(this.tokenKey));
+//   }
+
+//   hasToken(): boolean {
+//     return !!JSON.parse(localStorage.getItem(this.tokenKey));
+//   }
+
+//   isAdmin(): boolean {
+//     return this.getUserRole().Role === 'Admin';
+//   }
+
+//   isAgent(): boolean {
+//     return this.getUserRole().Role === 'Agent';
+//   }
+
+//   hasRole(expectedRole: string): boolean {
+//     return this.getUserRole().Role === expectedRole;
+//   }
+
 }

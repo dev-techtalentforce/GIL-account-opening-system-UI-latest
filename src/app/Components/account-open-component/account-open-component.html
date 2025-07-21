@@ -1,0 +1,111 @@
+<form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+
+  <!-- ✅ Personal Details -->
+  <div class="card mb-4 shadow rounded-3">
+    <div class="card-header rounded-top-3">
+      <h5 class="mb-0">Personal Details</h5>
+    </div>
+    <div class="card-body row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Channel ID *</label>
+        <input type="text" class="form-control" formControlName="channelid" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">App ID *</label>
+        <input type="text" class="form-control" formControlName="appid" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Partner ID *</label>
+        <input type="text" class="form-control" formControlName="partnerid" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">BC ID *</label>
+        <input type="text" class="form-control" formControlName="bcid" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">BC Agent ID *</label>
+        <input type="text" class="form-control" formControlName="bcagentid" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Agent Name *</label>
+        <input type="text" class="form-control" formControlName="bcagentname" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Mobile Number *</label>
+        <input type="text" class="form-control" formControlName="mobilenumber" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Email *</label>
+        <input type="email" class="form-control" formControlName="emailid" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Product Details -->
+  <div class="card mb-4 shadow rounded-3" [formGroupName]="'productdetails'">
+    <div class="card-header  rounded-top-3">
+      <h5 class="mb-0">Product Details</h5>
+    </div>
+    <div class="card-body">
+      <div class="form-check form-check-inline me-4">
+        <input class="form-check-input" type="checkbox" formControlName="dmt" id="dmt" />
+        <label class="form-check-label" for="dmt">DMT</label>
+      </div>
+      <div class="form-check form-check-inline me-4">
+        <input class="form-check-input" type="checkbox" formControlName="aeps" id="aeps" />
+        <label class="form-check-label" for="aeps">AEPS</label>
+      </div>
+      <div class="form-check form-check-inline me-4">
+        <input class="form-check-input" type="checkbox" formControlName="cardpin" id="cardpin" />
+        <label class="form-check-label" for="cardpin">Card PIN</label>
+      </div>
+      <div class="form-check form-check-inline me-4">
+        <input class="form-check-input" type="checkbox" formControlName="accountopen" id="accountopen" />
+        <label class="form-check-label" for="accountopen">Account Open</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Terminal Details -->
+  <div class="card mb-4 shadow rounded-3" [formGroupName]="'terminaldetails'">
+    <div class="card-header rounded-top-3">
+      <h5 class="mb-0">Terminal Details</h5>
+    </div>
+    <div class="card-body row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">TPOS Serial No</label>
+        <input type="text" class="form-control" formControlName="tposserialno" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Terminal Address</label>
+        <input type="text" class="form-control" formControlName="taddress" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Terminal Address 1</label>
+        <input type="text" class="form-control" formControlName="taddress1" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Pincode</label>
+        <input type="text" class="form-control" formControlName="tpincode" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">City</label>
+        <input type="text" class="form-control" formControlName="tcity" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">State</label>
+        <input type="text" class="form-control" formControlName="tstate" />
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="temail" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Submit Buttons -->
+  <div class="text-center mb-5">
+    <button type="submit" class="btn btn-primary me-2" [disabled]="agentForm.invalid">Submit</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">Reset</button>
+  </div>
+</form>

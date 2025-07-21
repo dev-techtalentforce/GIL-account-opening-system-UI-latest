@@ -1,0 +1,16 @@
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+  <h4 class="text-primary text-center mb-4">Add Balance</h4>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="mb-3">
+      <label class="form-label">Amount (₹)</label>
+      <input type="text" formControlName="amount" class="form-control" placeholder="e.g. 500" />
+      <div *ngIf="form.get('amount')?.touched && form.get('amount')?.invalid" class="text-danger">
+        <small *ngIf="form.get('amount')?.errors?.['required']">Amount is required</small>
+        <small *ngIf="form.get('amount')?.errors?.['pattern']">Enter amount in hundreds (100, 200...)</small>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Proceed to Pay</button>
+  </form>
+</div>
