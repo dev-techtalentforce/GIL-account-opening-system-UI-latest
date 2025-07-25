@@ -30,17 +30,11 @@ export class WalletService {
   hostURL='';
 
    initiatePayment(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/verify`, data, { responseType: 'text' });
+    return this.http.post(`${this.apiUrl}/verify`, data);
   }
 
-  verifyPayment(request: VerifyPaymentRequest): Observable<VerifyPaymentResponse> {
-    const apiUrl = `${this.hostURL}/wallet/verify-payment`;
-    return this.http.post<VerifyPaymentResponse>(apiUrl, request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        const errorMsg = error.error?.error || 'Unknown payment verification error';
-        return throwError(() => new Error(errorMsg));
-      })
-    );
+  verifyPayment(payload:any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/verifyPayment`, payload);
   }
   
 

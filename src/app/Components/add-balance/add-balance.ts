@@ -7,14 +7,14 @@ import { InitiatePaymentRequest, InitiatePaymentResponse } from '../../Models/wa
 import { AgentService } from '../../Services/agent-service';
 import { WalletService } from '../../Services/wallet-service';
 import { AuthService } from '../../Services/auth-service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 
 
 
 @Component({
   selector: 'app-add-balance',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, NgIf, CommonModule],
   templateUrl: './add-balance.html',
   styleUrl: './add-balance.css'
 })
@@ -25,8 +25,9 @@ export class AddBalance implements OnInit {
   isAgent = true;
   paymentData:any[]=[];
   payments: any[]=[]; 
-
   totalBalance: number = 0;
+  credits: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -40,113 +41,110 @@ export class AddBalance implements OnInit {
       amount: ['', [Validators.required, Validators.pattern(/^([1-9][0-9]*00)$/)]]
     });
 
-    const agentId = 1; // Replace with dynamic ID if needed
-    // this.walletService.getPaymentsByAgentId(agentId).subscribe({
-    //   next: (data) => this.paymentData = data,
-    //   error: (err) => console.error('Error fetching payments', err)
-    // });
+    const agentId = 1;
+  this.walletService.getPaymentsByAgentId(agentId).subscribe({
+    next: (data) => {
+      this.paymentData = data;
 
-    this.walletService.getPaymentsByAgentId(agentId).subscribe({
-  next: (data) => {
-    this.paymentData = data;
+      // Calculate total balance
+      const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
+      console.log('Total Wallet Balance:', totalBalance);
 
-    // Calculate total balance from `amount` field
-    const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
-    console.log('Total Wallet Balance:', totalBalance);
+      // Save to class variable
+      this.totalBalance = totalBalance;
 
-    // Optionally store in a class variable to display in UI
-    this.totalBalance = totalBalance;
-  },
-  error: (err) => console.error('Error fetching payments', err)
-});
+      // ✅ Calculate credits here, AFTER totalBalance is set
+      this.credits = Math.floor(this.totalBalance / 100);
+      console.log('Credits:', this.credits);
+    },
+    error: (err) => console.error('Error fetching payments', err)
+  });
   }
-
-  // onSubmit(): void {
-  //   debugger
-  //   if (this.form.invalid) {
-  //     this.form.markAllAsTouched();
-  //     return;
-  //   }
-
-  //   const amount = +this.form.value.amount;
-  //   const payload: any = {
-  //     amount
-  //   };
-
-  //   this.walletService.initiatePayment(payload).subscribe((orderId: any) => {
-  //     debugger
-  //     payload.orderID = orderId;
-  //     this.launchRazorpay(payload);
-  //     this.toastr.success("Payment send successfully...")
-  //     console.log("ru pay response...", orderId + "     value of ammount", amount);
-  //   },
-  //     (err: any) => {
-  //       this.toastr.error('payment failed....' + err);
-  //       console.log(err);
-  //     })
-  //   this.form.reset();
-  // }
+  
 
   onSubmit(): void {
+ 
   if (this.form.invalid) {
     this.form.markAllAsTouched();
     return;
   }
 
+
   const amount = +this.form.value.amount;
-  const paymentOption = this.form.value.paymentOption;
-  
   const payload: any = {
     amount,
-    paymentOption
   };
 
-  // Call your API to initiate the payment and create the Razorpay order
-  this.walletService.initiatePayment(payload).subscribe((orderId: any) => {
-    // Once the order ID is received, launch the Razorpay modal
-    payload.orderID = orderId;
-    this.launchRazorpay(payload);  // Open Razorpay Modal
-    this.toastr.success("Payment initiation successful!");
+
+ this.walletService.initiatePayment(payload).subscribe(
+  (response: any) => {
+   
+     const orderId = response.orderId;  // Access the orderID inside orderId
+
+    if (orderId) {
+      payload.orderID = orderId;  // Add orderID to the payload
+
+      // Proceed with Razorpay payment
+      this.launchRazorpay(payload);
+      this.toastr.success("Payment request sent successfully...");
+      console.log("Razorpay order response...", orderId, "Amount:", amount);
+    } else {
+      this.toastr.error("Failed to retrieve order ID.");
+    }
   },
   (err: any) => {
-    this.toastr.error('Payment initiation failed: ' + err);
-  });
+    this.toastr.error('Payment initiation failed: ' + err.message || err);
+    console.log(err);
+  }
+);
+
 
   this.form.reset();
 }
 
-  launchRazorpay(paymentData: any): void {
-    const options = {
-      key: 'rzp_test_0Uh8LaT1c4HiZc',
-      amount: paymentData.amount * 100,
-      currency: 'INR',
-      name: 'My Wallet',
-      description: 'Add Balance',
-      order_id: paymentData.orderID,
-      handler: (response: any) => {
-        const finalPayload = {
-          ...paymentData,
-          transID: response.razorpay_payment_id,
-          paymentStatus: 'Success'
-        };
+launchRazorpay(paymentData: any): void {
 
-        this.walletService.verifyPayment(finalPayload).subscribe({
-          next: () => this.toastr.success('Payment verified successfully!'),
-          error: () => this.toastr.error('Payment verification failed')
-        });
-      },
-      theme: { color: '#198754' }
-    };
+  const options = {
+    key: 'rzp_test_0Uh8LaT1c4HiZc', 
+    amount: paymentData.amount * 100, 
+    currency: 'INR', 
+    name: 'My Wallet',
+    description: 'Add Balance',
+    order_id:  paymentData.orderID, 
+    handler: (response: any) => {
+       const paymentId = response.razorpay_payment_id;
+      const orderId = response.razorpay_order_id;
+      const signature = response.razorpay_signature;
 
-    // const rzp = new Razorpay(options);
-    // rzp.open();
-  }
-  
-  initiatePayment(){
+      const finalPayload = {
+        OrderId: paymentData.orderID,
+        PaymentId: paymentId,
+        Signature: signature,
+      };
 
-  }
+ 
+      this.walletService.verifyPayment(finalPayload).subscribe(
+        (verifyResponse) => {
+         
+          this.toastr.success('Payment verified successfully!');
+        },
+        (verifyError) => {
+         
+          this.toastr.error('Payment verification failed: ' + verifyError.message || verifyError);
+        }
+      );
+    },
+    theme: { color: '#198754' },
+    modal: {
+      ondismiss: function () {
+        console.log('Payment modal was closed');
+      }
+    }
+  };
 
-  getPaymentMode(){
+  // Initialize Razorpay and open the payment gateway
+  const rzp = new (window as any).Razorpay(options);
+  rzp.open();
+}
 
-  }
 }
