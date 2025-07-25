@@ -1,0 +1,15 @@
+.payment-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.payment-option img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.payment-option span {
+  font-size: 16px;
+}

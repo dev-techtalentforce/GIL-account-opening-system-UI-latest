@@ -1,0 +1,7 @@
+.btn {
+  color: black;
+}
+
+.btn :hover {
+    cursor: pointer !important;
+}

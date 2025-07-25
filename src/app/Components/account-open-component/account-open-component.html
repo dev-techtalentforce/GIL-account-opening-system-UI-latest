@@ -6,40 +6,124 @@
       <h5 class="mb-0">Personal Details</h5>
     </div>
     <div class="card-body row">
+
       <div class="col-md-4 mb-3">
-        <label class="form-label">Channel ID *</label>
-        <input type="text" class="form-control" formControlName="channelid" />
+        <label class="form-label">Agent First Name *</label>
+        <input type="text" class="form-control" formControlName="bcagentname" placeholder="Enter first name" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Middle Name</label>
+        <input type="text" class="form-control" formControlName="middlename" placeholder="Enter middle name" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" formControlName="lastname" placeholder="Enter last name" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Company Name</label>
+        <input type="text" class="form-control" formControlName="companyname" placeholder="Enter company name" />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Residential Address</label>
+        <input type="text" class="form-control" formControlName="address" placeholder="Enter address" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">State</label>
+        <input type="text" class="form-control" formControlName="statename" placeholder="Enter state name" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">City</label>
+        <input type="text" class="form-control" formControlName="cityname" placeholder="Enter city name" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">District</label>
+        <input type="text" class="form-control" formControlName="district" placeholder="Enter district" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Area</label>
+        <input type="text" class="form-control" formControlName="area" placeholder="Enter area/locality" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Pincode</label>
+        <input type="text" class="form-control" formControlName="pincode" placeholder="Enter pincode" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Mobile Number</label>
+        <input type="text" class="form-control" formControlName="mobilenumber" placeholder="Enter mobile number" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Telephone</label>
+        <input type="text" class="form-control" formControlName="telephone" placeholder="Enter telephone number" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Alternate Number</label>
+        <input type="text" class="form-control" formControlName="alternatenumber"
+          placeholder="Enter alternate number" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="emailid" placeholder="Enter email address" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" formControlName="dob" />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">PAN Card</label>
+        <input type="text" class="form-control" formControlName="pancard" placeholder="Enter PAN card number" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ✅ Shop Address Info -->
+  <div class="card mb-4 shadow rounded-3">
+    <div class="card-header rounded-top-3">
+      <h5 class="mb-0">Shop Address Info</h5>
+    </div>
+    <div class="card-body row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Shop Address</label>
+        <input type="text" class="form-control" formControlName="shopaddress" />
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Shop Area</label>
+        <input type="text" class="form-control" formControlName="shoparea" />
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Shop Pincode</label>
+        <input type="text" class="form-control" formControlName="shoppincode" />
       </div>
       <div class="col-md-4 mb-3">
-        <label class="form-label">App ID *</label>
-        <input type="text" class="form-control" formControlName="appid" />
+        <label class="form-label">Shop City</label>
+        <input type="text" class="form-control" formControlName="shopcity" />
       </div>
       <div class="col-md-4 mb-3">
-        <label class="form-label">Partner ID *</label>
-        <input type="text" class="form-control" formControlName="partnerid" />
+        <label class="form-label">Shop District</label>
+        <input type="text" class="form-control" formControlName="shopdistrict" />
       </div>
       <div class="col-md-4 mb-3">
-        <label class="form-label">BC ID *</label>
-        <input type="text" class="form-control" formControlName="bcid" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label">BC Agent ID *</label>
-        <input type="text" class="form-control" formControlName="bcagentid" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label">Agent Name *</label>
-        <input type="text" class="form-control" formControlName="bcagentname" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label">Mobile Number *</label>
-        <input type="text" class="form-control" formControlName="mobilenumber" />
-      </div>
-      <div class="col-md-4 mb-3">
-        <label class="form-label">Email *</label>
-        <input type="email" class="form-control" formControlName="emailid" />
+        <label class="form-label">Shop State</label>
+        <input type="text" class="form-control" formControlName="shopstate" />
       </div>
     </div>
   </div>
+
 
   <!-- ✅ Product Details -->
   <div class="card mb-4 shadow rounded-3" [formGroupName]="'productdetails'">
@@ -67,7 +151,7 @@
   </div>
 
   <!-- ✅ Terminal Details -->
-  <div class="card mb-4 shadow rounded-3" [formGroupName]="'terminaldetails'">
+  <div class="card mb-4 shadow rounded-3" *ngIf="showTerminalDetails" [formGroupName]="'terminaldetails'">
     <div class="card-header rounded-top-3">
       <h5 class="mb-0">Terminal Details</h5>
     </div>
@@ -103,9 +187,10 @@
     </div>
   </div>
 
+
   <!-- ✅ Submit Buttons -->
   <div class="text-center mb-5">
-    <button type="submit" class="btn btn-primary me-2" [disabled]="agentForm.invalid">Submit</button>
+    <button type="submit" class="btn btn-primary me-2">Submit</button>
     <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">Reset</button>
   </div>
 </form>

@@ -48,19 +48,35 @@ export class AgentDashboardComponent implements OnInit {
       accounts: this.fb.array([])
     });
   }
+  paymentData: any[] = [];
+  totalBalance: number = 0;
+  credits: number = 0;
+
+
 
   ngOnInit(): void {
     this.walletService.getWalletBalance().subscribe((data: WalletBalanceResponse) => {
-      this.walletDetails = data;
-    });
+    this.walletDetails = data;
+  });
 
-    // this.agentService.getAgentById().subscribe({
-    //   next: (response: any) => {
-    //     this.panNo = response.pancard;
-    //     this.fetchCustomer(this.panNo);
-    //   },
-    //   error: (error:any) => this.toastr.error(error)
-    // });
+  const agentId = 1;
+  this.walletService.getPaymentsByAgentId(agentId).subscribe({
+    next: (data) => {
+      this.paymentData = data;
+
+      // Calculate total balance
+      const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
+      console.log('Total Wallet Balance:', totalBalance);
+
+      // Save to class variable
+      this.totalBalance = totalBalance;
+
+      // ✅ Calculate credits here, AFTER totalBalance is set
+      this.credits = Math.floor(this.totalBalance / 100);
+      console.log('Credits:', this.credits);
+    },
+    error: (err) => console.error('Error fetching payments', err)
+  });
   }
 
   get accountsArray(): FormArray {
@@ -70,11 +86,11 @@ export class AgentDashboardComponent implements OnInit {
   fetchCustomer(panNo: string) {
     const params = { pan: panNo };
     this.nsdlService.fetchCustomers(params).subscribe({
-      next: (response:any) => {
+      next: (response: any) => {
         this.response = response;
         this.populateAccountsForm(response.custdetails);
       },
-      error: (error:any) => this.toastr.error(error)
+      error: (error: any) => this.toastr.error(error)
     });
   }
 
@@ -95,6 +111,9 @@ export class AgentDashboardComponent implements OnInit {
   }
 
   openAppInNewTab() {
-    this.router.navigate(['/account-open']);
+    this.router.navigate(['/add-balance']);
   }
+
+
+
 }

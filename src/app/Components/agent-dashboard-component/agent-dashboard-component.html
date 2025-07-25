@@ -7,7 +7,7 @@
             <i class="feather icon-zap text-c-green f-30"></i>
           </div>
           <div class="col">
-            <h3 class="f-w-300">₹ {{walletDetails.walletBalance}}</h3>
+            <h3 class="f-w-300">₹ {{totalBalance}}</h3>
             <span class="d-block text-uppercase">Wallet Balance</span>
           </div>
         </div>
@@ -21,7 +21,7 @@
             <i class="feather icon-zap text-c-green f-30"></i>
           </div>
           <div class="col">
-            <h3 class="f-w-300">{{walletDetails.availableCredits}}</h3>
+            <h3 class="f-w-300">{{credits}}</h3>
             <span class="d-block text-uppercase">Credits</span>
           </div>
         </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="col-sm-12">
+    <!-- <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
           <h5>Opened Accounts</h5>
@@ -96,6 +96,61 @@
           </form>
         </div>
       </div>
+    </div> -->
+  
+  <!-- listing -->
+  <div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Razorpay Payments</h5>
     </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Order ID</th>
+              <th>Amount</th>
+              <th>Receipt</th>
+              <th>Status</th>
+              <!-- <th>Created At</th> -->
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let payment of paymentData; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ payment.orderID }}</td>
+              <td>{{ payment.amount | currency:'INR' }}</td>
+              <td>{{ payment.receipt }}</td>
+              <td>
+                <span 
+                  class="badge" 
+                  [ngClass]="{
+                    'bg-success': payment.status === 'Created',
+                    'bg-danger': payment.status === 'failed',
+                    'bg-warning': payment.status === 'pending'
+                  }">
+                  {{ payment.status }}
+                </span>
+              </td>
+              <!-- <td>{{ payment.createdAt | date: 'dd MMM, y HH:mm' }}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #noData>
+          <tr>
+            <td colspan="6" class="text-center py-3">No payment records found.</td>
+          </tr>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
   </div>
 </div>

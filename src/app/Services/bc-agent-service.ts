@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class BcAgentService {
-    private apiUrl = '/api/BcAgentRegistration/register'; // Adjust as needed
+    private apiUrl = 'https://localhost:7183/api/BcAgentRegistration/register'; // Adjust as needed
 
   constructor(private http: HttpClient) {}
 

@@ -1,7 +1,8 @@
-<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+<div class="card shadow p-4 pt-2 mx-auto mt-0" style="max-width: 500px;">
   <h4 class="text-primary text-center mb-4">Add Balance</h4>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Amount Field -->
     <div class="mb-3">
       <label class="form-label">Amount (₹)</label>
       <input type="text" formControlName="amount" class="form-control" placeholder="e.g. 500" />
@@ -11,6 +12,106 @@
       </div>
     </div>
 
+    <!-- Payment Gateway Selection (UPI/Card/Wallet) -->
+    <div class="mb-3">
+      <label class="form-label">Select Payment Method</label><br>
+      
+      <div class="form-check form-check-inline">
+        <img src="https://cdn-icons-png.flaticon.com/512/633/633611.png" height="25" class="me-2" />
+        <input class="form-check-input" type="radio" formControlName="paymentOption" value="Card" id="razorpayCard" />
+        <label class="form-check-label" for="razorpayCard">Credit/Debit Card</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <img src="https://cdn-icons-png.flaticon.com/512/349/349221.png" height="25" class="me-2" />
+        <input class="form-check-input" type="radio" formControlName="paymentOption" value="UPI" id="razorpayUPI" />
+        <label class="form-check-label" for="razorpayUPI">UPI</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833345.png" height="25" class="me-2" />
+        <input class="form-check-input" type="radio" formControlName="paymentOption" value="Wallet" id="razorpayWallet" />
+        <label class="form-check-label" for="razorpayWallet">Wallet</label>
+      </div>
+
+      <div *ngIf="form.get('paymentOption')?.touched && form.get('paymentOption')?.invalid" class="text-danger">
+        <small>Payment method is required</small>
+      </div>
+    </div>
+    <!-- Submit Button -->
     <button type="submit" class="btn btn-success w-100">Proceed to Pay</button>
   </form>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- listing -->
+  <div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Razorpay Payments</h5>
+    </div>
+
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Order ID</th>
+              <th>Amount</th>
+              <th>Receipt</th>
+              <th>Status</th>
+              <!-- <th>Created At</th> -->
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let payment of paymentData; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ payment.orderID }}</td>
+              <td>{{ payment.amount | currency:'INR' }}</td>
+              <td>{{ payment.receipt }}</td>
+              <td>
+                <span 
+                  class="badge" 
+                  [ngClass]="{
+                    'bg-success': payment.status === 'Created',
+                    'bg-danger': payment.status === 'failed',
+                    'bg-warning': payment.status === 'pending'
+                  }">
+                  {{ payment.status }}
+                </span>
+              </td>
+              <!-- <td>{{ payment.createdAt | date: 'dd MMM, y HH:mm' }}</td> -->
+            </tr>
+          </tbody>
+        </table>
+
+        <ng-template #noData>
+          <tr>
+            <td colspan="6" class="text-center py-3">No payment records found.</td>
+          </tr>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+
