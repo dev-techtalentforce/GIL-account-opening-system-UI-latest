@@ -131,19 +131,33 @@ export class RegistrationComponent implements OnInit {
     debugger
     this.submitted = true;
 
+    const controls = this.registrationForm.controls;
     if (this.registrationForm.invalid) {
-      this.registrationForm.markAllAsTouched();
+      Object.keys(controls).forEach((controlName) =>
+        controls[controlName].markAsTouched()
+      );
       return;
     }
+
+    // if (this.registrationForm?.invalid) {
+    //   this.registrationForm?.markAllAsTouched();
+    //   return;
+    // }
 
     const payload = this.registrationForm.value;
     console.log("registration payload", payload)
 
     this.agentRegister.register(payload).subscribe({
       next: (response: any) => {
-        this.toastr.success('Registration successful');
-        this.registrationForm.reset();
-        this.submitted = false;
+        if (response == false) {
+          alert("User already Exist")
+        }
+        else {
+          this.toastr.success('Registration successful');
+          this.registrationForm.reset();
+          this.submitted = false;
+        }
+
       },
       error: (error: any) => {
         this.toastr.error(error.message || 'Registration failed');

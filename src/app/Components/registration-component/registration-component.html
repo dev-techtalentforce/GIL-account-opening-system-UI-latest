@@ -109,9 +109,9 @@
               class="form-control"
               placeholder="Password"
             />
-            <div class="text-danger" *ngIf="submitted && f.password.errors">
-              <div *ngIf="f.password.errors['required']">Password is required</div>
-              <div *ngIf="f.password.errors['minlength']">Minimum 6 characters required</div>
+            <div class="text-danger" *ngIf="submitted && f.passwordHash.errors">
+              <div *ngIf="f.passwordHash.errors['required']">Password is required</div>
+              <div *ngIf="f.passwordHash.errors['minlength']">Minimum 6 characters required</div>
             </div>
           </div>
 

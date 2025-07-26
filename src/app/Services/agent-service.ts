@@ -16,13 +16,8 @@ export class AgentService {
   constructor(private http: HttpClient) {}
   
 
-  register(user: User): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(`${this.apiUrl}Users/UserRegistration`, user).pipe(
-      map(response => ({
-        message: response.message || 'Registration successful'
-      })),
-      catchError(this.handleError)
-    );
+  register(user: User){
+    return this.http.post(`${this.apiUrl}Users/UserRegistration`, user);
   }
   getAgentById() {
     const apiUrl = `${this.host}/agent/getAgentById`;
