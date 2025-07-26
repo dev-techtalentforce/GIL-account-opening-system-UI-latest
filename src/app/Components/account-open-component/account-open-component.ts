@@ -1,171 +1,99 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { ToastrService } from 'ngx-toastr';
-// import { NsdlPayload } from '../../Models/nsdl-modal';
-// import { AuthService } from '../../Services/auth-service';
-// import { NsdlService } from '../../Services/nsdl-service';
-// import * as CryptoJS from 'crypto-js';
-// import { CommonService } from '../../Services/common-service';
-
-import { BcAgentService } from '../../Services/bc-agent-service';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup,Validators ,ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AccountOpen } from '../../Services/account-open';
 
 @Component({
   selector: 'app-account-open',
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './account-open-component.html',
   styleUrl: './account-open-component.css'
 })
-export class AccountOpenComponent implements OnInit {
-  agentForm!: FormGroup;
-  showTerminalDetails = false;
+export class AccountOpenComponent implements OnInit  {
 
-  constructor(private fb: FormBuilder, private agentService: BcAgentService, private toastr: ToastrService,
-  ) { }
+    form!: FormGroup;
+  submitted = false;
 
-   ngOnInit(): void {
-    this.agentForm = this.fb.group({
-      channelid: ['lfbpWjegXHwnnirQOlYP'],
-      appid: ['com.jarviswebbc.nsdlpb'],
-      partnerid: ['wpemmjhKus'],
+  constructor(private fb: FormBuilder,private accountService: AccountOpen,private toastr: ToastrService) {}
+  
+    ngOnInit(): void {
+    this.form = this.fb.group({
+      // Nominee Details
+      nomineeName: [''],
+      nomineeDob: [''],
+      relationship: [''],
+      add1: [''],
+      add2: [''],
+      add3: [''],
+      pin: [''],
+      nomineeState: [''],
+      nomineeCity: [''],
+
+      // Personal Details
+      customername: ['', Validators.required],
+      customerLastName: [''],
+      dateofbirth: [''],
+      pincode: [''],
+      email: ['', [Validators.email]],
+      mobileNo: ['', Validators.pattern(/^[0-9]{10}$/)],
+
+      // Other Details
+      maritalStatus: [''],
+      income: [''],
+      middleNameOfMother: [''],
+      houseOfFatherOrSpouse: [''],
+      kycFlag: [''],
+      panNo: [''],
+
+      // Additional Parameters
+      channelid: [''],
+      partnerid: [''],
+      applicationdocketnumber: [''],
+      dpid: [''],
+      clientid: [''],
+      tradingaccountnumber: [''],
+      partnerRefNumber: [''],
+      partnerpan: [''],
+      customerRefNumber: [''],
+      customerDematId: [''],
+      partnerCallBackURL: [''],
       bcid: [''],
       bcagentid: [''],
-      bcagentname: ['', Validators.required],
-      middlename: ['', Validators.required],
-      lastname: ['', Validators.required],
-      companyname: ['', Validators.required],
-      address: ['', Validators.required],
-      statename: ['', Validators.required],
-      cityname: ['', Validators.required],
-      district: ['', Validators.required],
-      area: ['', Validators.required],
-      pincode: ['', Validators.required],
-      mobilenumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-      telephone: [''],
-      alternatenumber: [''],
-      emailid: ['', [Validators.required, Validators.email]],
-      dob: ['', Validators.required],
-      shopaddress: ['', Validators.required],
-      shopstate: ['', Validators.required],
-      shopcity: ['', Validators.required],
-      shopdistrict: ['', Validators.required],
-      shoparea: ['', Validators.required],
-      shoppincode: ['', Validators.required],
-      pancard: ['', [
-        Validators.required,
-        Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)
-      ]],
-      bcagentform: [''],
-      productdetails: this.fb.group({
-        dmt: [false],
-        aeps: [false],
-        cardpin: [false],
-        accountopen: [false],
-      }),
-      terminaldetails: this.fb.group({
-        tposserialno: [''],
-        taddress: [''],
-        taddress1: [''],
-        tpincode: [''],
-        tcity: [''],
-        tstate: [''],
-        temail: [''],
-      }),
-      agenttype: ['1'],
-      agentbcid: [''],
-      token: [''],
-      signcs: [''],
-    });
 
-    this.agentForm.get('productdetails')?.valueChanges.subscribe(() => {
-      this.checkDmtAeps();
+      // Agent Id
+      agentId: [''],
+      status: [0]
     });
   }
 
-  checkDmtAeps() {
-    const productdetails = this.agentForm.get('productdetails')?.value;
-    this.showTerminalDetails = productdetails.dmt && productdetails.aeps;
+  get f() {
+    return this.form.controls;
   }
 
-  onSubmit() {
-    if (this.agentForm.invalid) {
-      this.toastr.error("Invalid form filled");
-      return;
-    }
+  onSubmit(): void {
+    this.submitted = true;
 
-    const formValues = this.agentForm.value;
+    if (this.form.invalid) return;
 
-    // ✅ Convert booleans to string "0"/"1"
-    const convertBooleansToStrings = (obj: any): any => {
-      if (Array.isArray(obj)) {
-        return obj.map(item => convertBooleansToStrings(item));
-      } else if (typeof obj === 'object' && obj !== null) {
-        return Object.keys(obj).reduce((acc: Record<string, any>, key: string) => {
-          acc[key] = convertBooleansToStrings(obj[key]);
-          return acc;
-        }, {});
-      } else {
-        return obj === true ? "1" : obj === false ? "0" : obj;
-      }
-    };
+    const payload = this.form.value;
 
-    const transformedValues = convertBooleansToStrings(formValues);
-
-    const payload = {
-      channelid: transformedValues.channelid,
-      appid: transformedValues.appid,
-      partnerid: transformedValues.partnerid,
-      bcid: transformedValues.bcid,
-      bcagentid: transformedValues.bcagentid,
-      bcagentname: transformedValues.bcagentname,
-      middlename: transformedValues.middlename,
-      lastname: transformedValues.lastname,
-      companyname: transformedValues.companyname,
-      address: transformedValues.address,
-      statename: transformedValues.statename,
-      cityname: transformedValues.cityname,
-      district: transformedValues.district,
-      area: transformedValues.area,
-      pincode: transformedValues.pincode,
-      mobilenumber: transformedValues.mobilenumber,
-      telephone: transformedValues.telephone,
-      alternatenumber: transformedValues.alternatenumber,
-      emailid: transformedValues.emailid,
-      dob: transformedValues.dob,
-      shopaddress: transformedValues.shopaddress,
-      shopstate: transformedValues.shopstate,
-      shopcity: transformedValues.shopcity,
-      shopdistrict: transformedValues.shopdistrict,
-      shoparea: transformedValues.shoparea,
-      shoppincode: transformedValues.shoppincode,
-      pancard: transformedValues.pancard,
-      bcagentform: transformedValues.bcagentform,
-      productdetails: transformedValues.productdetails,
-      terminaldetails: transformedValues.terminaldetails,
-      agenttype: transformedValues.agenttype,
-      agentbcid: transformedValues.agentbcid,
-      token: transformedValues.token,
-      signcs: transformedValues.signcs,
-    };
-
-    this.agentService.registerAgent(payload).subscribe({
+    this.accountService.insertAccount(payload).subscribe({
       next: (res) => {
-        this.toastr.success("Agent registered successfully");
-        console.log('Success:', res);
+        this.toastr.success('Account created successfully!', 'Success');
+        console.log('Response:', res);
+        this.form.reset();
+        this.submitted = false;
       },
       error: (err) => {
-        this.toastr.error("Registration failed");
-        console.error('Error:', err);
+        this.toastr.error('Failed to create account.', 'Error');
+        console.error(err);
       }
     });
   }
 
-  resetForm() {
-    this.agentForm.reset();
-    this.agentForm.patchValue({ agenttype: '1' });
+  onReset(): void {
+    this.submitted = false;
+    this.form.reset();
   }
 }

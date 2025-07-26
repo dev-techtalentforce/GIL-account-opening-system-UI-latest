@@ -1,0 +1,18 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+  z-index: 1000;
+
+  .nav-link {
+    color: #333;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+}

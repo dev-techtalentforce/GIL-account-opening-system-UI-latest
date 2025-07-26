@@ -6,12 +6,13 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 // project import
 import screenfull from 'screenfull';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-right',
-  imports: [SharedModule, RouterLink],
+  imports: [SharedModule, RouterLink,CommonModule, RouterModule],
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss'],
   providers: [NgbDropdownConfig]
