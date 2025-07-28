@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../Services/auth-service';
 import { CommonService } from '../../Services/common-service';
 import { CommonModule } from '@angular/common';
+import { AgentService } from '../../Services/agent-service';
 
 @Component({
   selector: 'app-admin-dashboard-component',
@@ -19,6 +20,7 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     // private agentService: AgentService,
     private authService: AuthService,
+    private agentService:AgentService,
     private commonService: CommonService,
     private toastr: ToastrService
   ) {}
@@ -30,7 +32,7 @@ export class AdminDashboardComponent implements OnInit {
 
   loadAgents() {
     debugger;
-    this.authService.getAllRegistrationList().subscribe({
+    this.agentService.getAgentAllList().subscribe({
       next: (response:any) => {
         this.rowData = response;
         console.log("response of getList of agent :-", response)

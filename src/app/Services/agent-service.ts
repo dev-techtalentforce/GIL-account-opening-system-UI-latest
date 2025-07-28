@@ -23,7 +23,20 @@ export class AgentService {
     const apiUrl = `${this.host}/agent/getAgentById`;
     return this.http.get(apiUrl);
   }
+   getAllRegistrationList(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}Users/GetAllAgentList`);
+  }
+   getAgentAllList(): Observable<User[]> {
 
+    debugger
+    return this.http.get<User[]>(`${this.apiUrl}Users/GetAllAgentList`);
+  }
+  
+//    getAllAgentList() {
+// debugger
+//     const apiUrl = `${this.host}/Users/GetAllAgentList`;
+//     return this.http.get(apiUrl);
+//   }
   registerBCAgent(agentData : any) {
     const apiUrl = `${this.host}/agent/registerBCAgent`;
     return this.http.post(apiUrl, agentData);

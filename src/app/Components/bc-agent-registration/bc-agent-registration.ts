@@ -110,8 +110,8 @@ export class BcAgentRegistration implements OnInit {
       channelid: transformedValues.channelid,
       appid: transformedValues.appid,
       partnerid: transformedValues.partnerid,
-      bcid: transformedValues.bcid,
-      bcagentid: transformedValues.bcagentid,
+      bcid: "1577",
+      bcagentid: "GILgj1001",
       bcagentname: transformedValues.bcagentname,
       middlename: transformedValues.middlename,
       lastname: transformedValues.lastname,
@@ -126,7 +126,7 @@ export class BcAgentRegistration implements OnInit {
       telephone: transformedValues.telephone,
       alternatenumber: transformedValues.alternatenumber,
       emailid: transformedValues.emailid,
-      dob: transformedValues.dob,
+      dob: this.formatDateToMMDDYYYY(transformedValues.dob),
       shopaddress: transformedValues.shopaddress,
       shopstate: transformedValues.shopstate,
       shopcity: transformedValues.shopcity,
@@ -138,7 +138,7 @@ export class BcAgentRegistration implements OnInit {
       productdetails: transformedValues.productdetails,
       terminaldetails: transformedValues.terminaldetails,
       agenttype: transformedValues.agenttype,
-      agentbcid: transformedValues.agentbcid,
+      agentbcid: "GILgj1001",
       token: transformedValues.token,
       signcs: transformedValues.signcs,
     };
@@ -154,6 +154,14 @@ export class BcAgentRegistration implements OnInit {
       }
     });
   }
+  formatDateToMMDDYYYY(dateInput: any): string {
+  const date = new Date(dateInput);
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months start at 0!
+  const dd = String(date.getDate()).padStart(2, '0');
+  const yyyy = date.getFullYear();
+  return `${mm}/${dd}/${yyyy}`;
+}
+
 
   resetForm() {
     this.agentForm.reset();
