@@ -1,11 +1,6 @@
-// angular import
-import { Component, OnDestroy, OnInit } from '@angular/core';
 
-// project import
-
-//
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import screenfull from 'screenfull';
-
 import { SharedModule } from '../../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,22 +12,25 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./nav-left.component.scss']
 })
 export class NavLeftComponent implements OnInit, OnDestroy {
- screenFull = true;
+screenFull = true;
+  isMenuOpen = false;
 
-  private fullscreenChangeHandler = () => {
-    this.screenFull = screenfull.isFullscreen;
-  };
+  @Output() menuToggle = new EventEmitter<boolean>();
 
   ngOnInit() {
     if (screenfull.isEnabled) {
       this.screenFull = screenfull.isFullscreen;
-      screenfull.on('change', this.fullscreenChangeHandler);
+      screenfull.on('change', () => {
+        this.screenFull = screenfull.isFullscreen;
+      });
     }
   }
 
   ngOnDestroy() {
     if (screenfull.isEnabled) {
-      screenfull.off('change', this.fullscreenChangeHandler);
+      screenfull.off('change', () => {
+        this.screenFull = screenfull.isFullscreen;
+      });
     }
   }
 
@@ -42,5 +40,10 @@ export class NavLeftComponent implements OnInit, OnDestroy {
         this.screenFull = screenfull.isFullscreen;
       });
     }
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    this.menuToggle.emit(this.isMenuOpen);
   }
 }

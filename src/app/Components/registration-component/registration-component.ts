@@ -20,6 +20,8 @@ import { AgentService } from '../../Services/agent-service';
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
   submitted = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -164,5 +166,12 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
+togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
+  // Toggle confirm password visibility
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 }

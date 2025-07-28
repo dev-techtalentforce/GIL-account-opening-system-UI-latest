@@ -41,11 +41,12 @@ ngOnInit() {
     this.wrapperWidth = 1024;
     this.windowWidth = 1024;
   }
-  const userData = localStorage.getItem('userData');
+   const userData = localStorage.getItem('user');
   if (userData) {
     const user = JSON.parse(userData);
-    this.role = user.role;
+    this.role = user.roleName;
   }
+
 
   NavigationItems.forEach((group) => {
     if (group.roles?.includes(this.role)) {

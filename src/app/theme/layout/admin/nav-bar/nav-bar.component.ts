@@ -21,6 +21,7 @@ export class NavBarComponent {
   headerStyle = '';
   menuClass = false;
   collapseStyle = 'none';
+  isMenuOpen = false;
 
   toggleMobOption(): void {
     this.menuClass = !this.menuClass;
@@ -33,6 +34,9 @@ export class NavBarComponent {
       this.closeMenu();
     }
   }
+  onMenuToggle(isOpen: boolean) {
+  this.isMenuOpen = isOpen;
+}
 
   closeMenu(): void {
     const nav = document.querySelector('app-navigation.pcoded-navbar') as HTMLElement | null;

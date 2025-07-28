@@ -1,18 +1,43 @@
-.sidebar {
-  width: 250px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #ffffff;
-  border-right: 1px solid #ddd;
-  overflow-y: auto;
-  z-index: 1000;
-
-  .nav-link {
-    color: #333;
-    &:hover {
-      background-color: #f0f0f0;
-    }
-  }
+.nav-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 60px; /* Fixed height for header-like layout */
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.app-name {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.menu-toggle,
+.fullscreen-toggle {
+  color: #333;
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  &:hover {
+    background-color: #e0e0e0;
+    border-radius: 50%;
+  }
+} 
