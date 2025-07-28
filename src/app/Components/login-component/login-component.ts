@@ -50,7 +50,7 @@ login() {
             if (this.isAdmin()) {
               this.router.navigateByUrl('/dashboard');
             } else if (this.isAgent()) {
-              this.router.navigateByUrl('/agent-details');
+              this.router.navigateByUrl('/agent-dashboard');
             } else {
               this.toastr.error('Unknown user role');
             }

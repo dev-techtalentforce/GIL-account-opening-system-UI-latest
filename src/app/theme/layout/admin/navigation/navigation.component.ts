@@ -4,7 +4,8 @@ import {  Component,
   inject,
   Signal,
   signal,
-  computed } from '@angular/core';
+  computed, 
+  output} from '@angular/core';
 import { CommonModule, isPlatformBrowser,Location, NgFor } from '@angular/common';
 
 
@@ -12,7 +13,7 @@ import { CommonModule, isPlatformBrowser,Location, NgFor } from '@angular/common
 import { SharedModule } from '../../../shared/shared.module';
 // import { NavLogoComponent } from './nav-logo/nav-logo.component';
 // import { NavContentComponent } from './nav-content/nav-content.component';
-import { NavGroupComponent } from './nav-content/nav-group/nav-group.component';
+// import { NavGroupComponent } from './nav-content/nav-group/nav-group.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NavigationItem, NavigationItems } from './navigation';
 import { NavLogoComponent } from './nav-logo/nav-logo.component';
@@ -20,14 +21,18 @@ import { NavContentComponent } from './nav-content/nav-content.component';
 
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule, SharedModule, NavGroupComponent, NgScrollbarModule],
+  imports: [CommonModule, SharedModule, NgScrollbarModule, NavLogoComponent, NavContentComponent],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
   standalone:true
 })
 export class NavigationComponent implements OnInit {
-  private location = inject(Location);
+    NavCollapse = output();
+      NavCollapsedMob = output();
 
+
+  private location = inject(Location);
+  navCollapsed: boolean = false;
   navigations: NavigationItem[] = [];
   filteredNavigations: NavigationItem[] = [];
 
@@ -36,10 +41,12 @@ wrapperWidth: number = (typeof window !== 'undefined') ? window.innerWidth : 102
   role: string = '';
 
 ngOnInit() {
-  const userData = localStorage.getItem('userData');
+  const userData = localStorage.getItem('user');
   if (userData) {
     const user = JSON.parse(userData);
-    this.role = user.role;
+    this.role = user.roleName;
+
+    console.log(user, " >>>> user");
   }
 
   NavigationItems.forEach((group) => {
@@ -58,6 +65,8 @@ ngOnInit() {
   });
 
   this.navigations = this.filteredNavigations;
+
+  console.log(this.navigations, " >>>>> this.navigations");
 }
 
 
@@ -88,5 +97,17 @@ ngOnInit() {
   trackByFn(index: number, item: NavigationItem): string {
   return item.title;
 }
+
+ navCollapse() {
+    if (this.windowWidth >= 992) {
+      this.navCollapsed = !this.navCollapsed;
+      this.NavCollapse.emit();
+    }
+  }
+   navCollapseMob() {
+    if (this.windowWidth < 992) {
+      this.NavCollapsedMob.emit();
+    }
+  }
 
 }

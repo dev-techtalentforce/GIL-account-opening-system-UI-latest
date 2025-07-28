@@ -18,29 +18,11 @@ export interface NavigationItem {
 export const NavigationItems: NavigationItem[] = [
   {
     id: 'navigation',
-    title: 'Navigation',
+    title: 'GAOS',
     type: 'group',
     icon: 'icon-navigation',
-    roles: ['admin', 'agent'],
+    roles: ["Admin", 'Agent'],
     children: [
-      {
-        id: 'agent-details',
-        title: 'Agent Details',
-        type: 'item',
-        url: '/agent-details',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
-        roles: ['agent']
-      },
-      {
-        id: 'agent-dashboard',
-        title: 'Dashboard',
-        type: 'item',
-        url: '/agent-dashboard',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
-        roles: ['agent']
-      },
       {
         id: 'dashboard',
         title: 'Dashboard',
@@ -48,16 +30,16 @@ export const NavigationItems: NavigationItem[] = [
         url: '/dashboard',
         icon: 'feather icon-home',
         classes: 'nav-item',
-        roles: ['admin']
+        roles: ["Admin"]
       },
       {
-        id: 'transactions',
-        title: 'Transactions',
+        id: 'agent-details',
+        title: 'Agent Details',
         type: 'item',
-        url: '/transactions',
-        icon: 'feather icon-credit-card',
+        url: '/agent-dashboard',
+        icon: 'feather icon-user',
         classes: 'nav-item',
-        roles: ['agent']
+        roles: ['Agent']
       },
       {
         id: 'add-balance',
@@ -65,7 +47,23 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         url: '/add-balance',
         icon: 'feather icon-plus',
-        roles: ['admin', 'agent']
+        roles: [ 'Agent']
+      },
+      {
+        id: 'nsdl-registration',
+        title: 'NSDLRegistration',
+        type: 'item',
+        url: '/agentRegistration',
+        icon: 'feather icon-user-plus',
+        roles: ['Agent']
+      },
+      {
+        id: 'account-open',
+        title: 'AccountOpen',
+        type: 'item',
+        url: '/account-open',
+        icon: 'feather icon-briefcase',
+        roles: ['Agent']
       }
     ]
   }

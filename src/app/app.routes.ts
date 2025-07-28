@@ -42,11 +42,15 @@ export const routes: Routes = [
             },
             {
               path:'agentRegistration',
-                loadComponent: () => import('./Components/account-open-component/account-open-component').then((c) => c.AccountOpenComponent),
+                loadComponent: () => import('./Components/bc-agent-registration/bc-agent-registration').then((c) => c.BcAgentRegistration),
             },
             {
               path:'payment-checkout',
                 loadComponent: () => import('./Components/razorpay-checkout/razorpay-checkout').then((c) => c.RazorpayCheckout),
+            },
+            {
+              path:'account-open',
+                loadComponent: () => import('./Components/account-open-component/account-open-component').then((c) => c.AccountOpenComponent),
             }
         ],
       },
