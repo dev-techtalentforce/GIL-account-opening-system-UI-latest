@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { NavBarComponent } from "./theme/layout/admin/nav-bar/nav-bar.component";
 // import feather from 'feather-icons';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgxSpinnerModule, NavBarComponent],
+  imports: [RouterOutlet, NgxSpinnerModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone:true
