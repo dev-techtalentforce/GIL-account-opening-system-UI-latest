@@ -15,7 +15,7 @@ export interface UserLoginResponseDto {
   kycStatus: string;
   referralCode: string;
   roleName: string;
-  agentId: number;
+  nsdl_status: number;
 }
 
 export interface User {
