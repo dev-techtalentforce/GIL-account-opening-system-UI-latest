@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
-import { LoginResponse, User, UserLoginResponseDto } from '../Models/user.model';
+import { LoginResponse, User, UserLoginResponseDto, ResetPassword } from '../Models/user.model';
 
 
 
@@ -83,8 +83,13 @@ login(credentials: { email: string; password: string }): Observable<LoginRespons
     this.router.navigateByUrl('/login');
   }
 
+  resetForgotPassword(email:any): Observable<ResetPassword> {
+    return this.http.post<User>(`https://localhost:7183/api/Users/resetForgotPassword`,email);
+  }
 
-
+  updatePassword(resetPassword:any): Observable<ResetPassword> {
+    return this.http.post<User>(`https://localhost:7183/api/Users/upadatePassword`, resetPassword);
+  }
 
     // login(credentials: { email: string; password: string }): Observable<{ token: string; user: { role: string } }> {
   //   const apiUrl = `${this.host}/auth/login`;

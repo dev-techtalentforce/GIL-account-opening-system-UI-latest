@@ -34,4 +34,8 @@ export class CommonService {
   paymentCheckout(payment: RZPCheckoutPayment): Observable<string> {
     return this.http.post<string>(`${this.apiUrl}/verify`, payment);
   }
+
+  AgentDetail(UserId:any): Observable<User> {
+    return this.http.post<User>(`https://localhost:7183/api/Users/GetAgentDetails`,UserId);
+  }
 }
