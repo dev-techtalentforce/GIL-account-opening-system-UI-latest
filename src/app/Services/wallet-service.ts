@@ -30,7 +30,7 @@ export class WalletService {
   hostURL='';
 
    initiatePayment(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/verify`, data);
+    return this.http.post(`${this.apiUrl}/paymentProcessing`, data);
   }
 
   verifyPayment(payload:any): Observable<any> {
@@ -38,8 +38,8 @@ export class WalletService {
   }
   
 
-  getPaymentsByAgentId(agentId: number): Observable<OrderDetails[]> {
-    return this.http.get<OrderDetails[]>(`${this.apiUrl}/${agentId}`);
+  getPaymentsByAgentId(agentId: any){
+    return this.http.get(`${this.apiUrl}/GetByAgentId?agentId=${agentId}`);
   }
 
 
@@ -59,7 +59,7 @@ setBalance(value: number) {
   }
 
   // For admin
-  topupHistory(agentId: string): Observable<AdminTransaction[]> {
+  topupHistory(agentId: any): Observable<AdminTransaction[]> {
     const apiURL = `${this.hostURL}/wallet/topup-history?agentId=${agentId}`;
     return this.http.get<AdminTransaction[]>(apiURL).pipe(
       catchError((error: HttpErrorResponse) => {

@@ -6,7 +6,7 @@ export interface UserLoginRequestDto {
 }
 
 export interface UserLoginResponseDto {
-  userId: number;
+  userId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -19,7 +19,7 @@ export interface UserLoginResponseDto {
 }
 
 export interface User {
-  userId?: number;
+  userId?: string;
   firstName: string;
   lastName: string;
   email: string;

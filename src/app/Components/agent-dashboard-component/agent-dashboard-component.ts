@@ -35,6 +35,7 @@ export class AgentDashboardComponent implements OnInit {
     respcode: '00',
     custdetails: []
   };
+  agentId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -55,30 +56,34 @@ export class AgentDashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+      const userStr = localStorage.getItem('user');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      this.agentId=user.userId
     this.walletService.getWalletBalance().subscribe((data: WalletBalanceResponse) => {
     this.walletDetails = data;
   });
-
-  const agentId = 1;
-  this.walletService.getPaymentsByAgentId(agentId).subscribe({
-    next: (data) => {
-      this.paymentData = data;
-
-      // Calculate total balance
-      const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
-      console.log('Total Wallet Balance:', totalBalance);
-
-      // Save to class variable
-      this.totalBalance = totalBalance;
-
-      // ✅ Calculate credits here, AFTER totalBalance is set
-      this.credits = Math.floor(this.totalBalance / 100);
-      console.log('Credits:', this.credits);
-    },
-    error: (err) => console.error('Error fetching payments', err)
-  });
+this.getlist();
+  
+  
   }
+  getlist(){
+    const id=  this.agentId
+   this.walletService.getPaymentsByAgentId(id).subscribe((res:any) => {
+this.paymentData = res;
+        console.log("load agent data by id >>>>>>>",this.paymentData)
 
+        // Calculate total balance
+        const totalBalance = res.reduce((sum: number, item: any) => sum + item.amount, 0);
+        console.log('Total Wallet Balance:', totalBalance);
+
+        // Save to class variable
+        this.totalBalance = totalBalance;
+
+        // ✅ Calculate credits here, AFTER totalBalance is set
+        this.credits = Math.floor(this.totalBalance / 100);
+        console.log('Credits:', this.credits);
+});
+  }
   get accountsArray(): FormArray {
     return this.accountsForm.get('accounts') as FormArray;
   }
