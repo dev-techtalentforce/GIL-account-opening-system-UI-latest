@@ -5,10 +5,11 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Services/auth-service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-reset-password-component',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NgxSpinnerModule],
   templateUrl: './reset-password-component.html',
   styleUrl: './reset-password-component.css'
 })
@@ -23,7 +24,8 @@ export class ResetPasswordComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private toastr: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private spinner: NgxSpinnerService
   ) {}
 
 
@@ -69,7 +71,6 @@ export class ResetPasswordComponent implements OnInit {
 
 
   onSubmit(): void {
-    debugger
     if (this.resetForm.invalid || this.isPasswordMismatch) {
       this.resetForm.markAllAsTouched();
       return;
@@ -81,18 +82,20 @@ export class ResetPasswordComponent implements OnInit {
       Token: this.token,
       Password: this.resetForm.value.newPassword
     };
-
+    this.spinner.show();
     this.authService.updatePassword(body).subscribe({
       next: (response:any) => {
         if (response) {
-          this.router.navigate(['/login'])
+          this.router.navigate(['/login']);
         }
         else {
           this.toastr.error("Failed to reject user.");
         }
+        this.spinner.hide();
       },
       error: (err:any) => {
         this.toastr.error("Failed to reject user.");
+        this.spinner.hide();
       }
     });
 
