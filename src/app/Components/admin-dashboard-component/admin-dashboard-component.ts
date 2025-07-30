@@ -21,7 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   errorMessage: string = '';
 
   userId: any;
-  paymentData: any[] = [];
+  paymentData: any;
   totalBalance: number = 0;
   credits: number = 0;
 
@@ -115,15 +115,15 @@ export class AdminDashboardComponent implements OnInit {
         this.paymentData = data;
 
         // Calculate total balance
-        const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
-        console.log('Total Wallet Balance:', totalBalance);
+        // const totalBalance = data.reduce((sum: number, item: any) => sum + item.amount, 0);
+        // console.log('Total Wallet Balance:', totalBalance);
 
-        // Save to class variable
-        this.totalBalance = totalBalance;
+        // // Save to class variable
+        // this.totalBalance = totalBalance;
 
-        // ✅ Calculate credits here, AFTER totalBalance is set
-        this.credits = Math.floor(this.totalBalance / 100);
-        console.log('Credits:', this.credits);
+        // // ✅ Calculate credits here, AFTER totalBalance is set
+        // this.credits = Math.floor(this.totalBalance / 100);
+        // console.log('Credits:', this.credits);
 
         // modal
         const dialogRef = this.dialog.open(AgentDetailModalComponent, {

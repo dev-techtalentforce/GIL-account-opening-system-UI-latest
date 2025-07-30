@@ -88,11 +88,11 @@ login(credentials: { email: string; password: string }): Observable<LoginRespons
   }
 
   resetForgotPassword(email:any): Observable<ResetPassword> {
-    return this.http.post<User>(`https://localhost:7183/api/Users/resetForgotPassword`,email);
+    return this.http.post<ResetPassword>(`https://localhost:7183/api/Users/resetForgotPassword`,email);
   }
 
   updatePassword(resetPassword:any): Observable<ResetPassword> {
-    return this.http.post<User>(`https://localhost:7183/api/Users/upadatePassword`, resetPassword);
+    return this.http.post<ResetPassword>(`https://localhost:7183/api/Users/upadatePassword`, resetPassword);
   }
 
     // login(credentials: { email: string; password: string }): Observable<{ token: string; user: { role: string } }> {
