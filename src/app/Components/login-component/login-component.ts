@@ -5,10 +5,11 @@ import { NgbModal, NgbModalRef, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../Services/auth-service';
 import { NgxSpinnerService, NgxSpinnerModule } from 'ngx-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-component',
-   imports: [RouterLink, ReactiveFormsModule, NgbModule ,NgxSpinnerModule],
+   imports: [RouterLink, ReactiveFormsModule, NgbModule ,NgxSpinnerModule,CommonModule],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css'
 })
@@ -18,6 +19,7 @@ export class LoginComponent {@ViewChild('forgotPasswordModal') forgotPasswordMod
   forgotSubmitted = false;
   loginFormSubmitted = false;
   isLoading = false;
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
@@ -36,6 +38,10 @@ export class LoginComponent {@ViewChild('forgotPasswordModal') forgotPasswordMod
       forgotEmail: ['', [Validators.required, Validators.email]]
     });
   }
+
+  togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
 login() {
   
     this.loginFormSubmitted = true;
@@ -109,12 +115,12 @@ login() {
 
   isAdmin(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.roleName === 'Admin';
+    return user.roleId === 0;
   }
 
   isAgent(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.roleName === 'Agent';
+    return user.roleId === 1;
   }
    isNSDL(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');

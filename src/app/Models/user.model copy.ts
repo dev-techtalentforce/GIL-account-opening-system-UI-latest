@@ -14,7 +14,7 @@ export interface UserLoginResponseDto {
   refreshTokenExpiryTime: string;
   kycStatus: string;
   referralCode: string;
-  roleName: string;
+  roleId: number;
   agentId: string;
 }
 
