@@ -17,6 +17,6 @@ export class BcAgentService {
   constructor(private http: HttpClient) {}
 
   registerAgent(data: BcAgentRegistration): Observable<any> {
-    return this.http.post(`${this.baseUrl}/BcAgentRegistration/register`, data);
+    return this.http.post(`${this.baseUrl}BcAgentRegistration/register`, data);
   }
 }
