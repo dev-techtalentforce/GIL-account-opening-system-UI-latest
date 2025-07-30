@@ -101,10 +101,12 @@ login() {
   onForgotPassword(modal: NgbModalRef) {
     this.forgotSubmitted = true;
     if (this.forgotPasswordForm.valid) {
+      this.spinner.show();
       const Email = this.forgotPasswordForm.get('forgotEmail')?.value;
       const payload = { Email };
       this.authService.resetForgotPassword(payload).subscribe({
         next: (response:any) => {
+          this.spinner.hide();
           this.toastr.success(`Reset link sent to: ${Email}`);
           modal.close();
         },
