@@ -6,7 +6,7 @@ export interface UserLoginRequestDto {
 }
 
 export interface UserLoginResponseDto {
-  userId: number;
+  userId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,11 +15,11 @@ export interface UserLoginResponseDto {
   kycStatus: string;
   referralCode: string;
   roleName: string;
-  agentId: number;
+  agentId: string;
 }
 
 export interface User {
-  userId: number;
+  userId: string;
   firstName: string;
   lastName: string;
   email: string;

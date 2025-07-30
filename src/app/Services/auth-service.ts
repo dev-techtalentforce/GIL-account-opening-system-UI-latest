@@ -59,6 +59,10 @@ login(credentials: { email: string; password: string }): Observable<LoginRespons
     );
   }
 
+  UpdateUserPassword(payload: any){
+    return this.http.post(`${this.apiUrl}Users/update-password`, payload);
+  }
+
    isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }

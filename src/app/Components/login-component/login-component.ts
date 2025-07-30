@@ -49,10 +49,10 @@ login() {
           if (this.isLoggedIn()) {
             if (this.isAdmin()) {
               this.router.navigateByUrl('/dashboard');
-            } else if (this.isAgent()) {
+            } else if (this.isAgent() && this.isNSDL()) {
               this.router.navigateByUrl('/agent-dashboard');
             } else {
-              this.toastr.error('Unknown user role');
+              this.router.navigateByUrl('/agentRegistration');           
             }
             this.loginForm.reset();
           }
@@ -123,5 +123,9 @@ login() {
   isAgent(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.roleName === 'Agent';
+  }
+   isNSDL(): boolean {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.nsdl_status === 1;
   }
 }

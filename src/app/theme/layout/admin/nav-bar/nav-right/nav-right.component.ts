@@ -19,6 +19,9 @@ import { CommonModule } from '@angular/common';
 })
 export class NavRightComponent implements OnInit, OnDestroy {
   screenFull = true;
+  userData: any;
+  firstName:any;
+  lastName : any;
   // public props
 
   // constructor
@@ -29,6 +32,12 @@ export class NavRightComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+      const userStr = localStorage.getItem('user');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      this.firstName=user.firstName;
+      this.lastName=user.lastName;
+   
+
     if (screenfull.isEnabled) {
       this.screenFull = screenfull.isFullscreen; // Initialize based on current fullscreen state
       screenfull.on('change', () => {
