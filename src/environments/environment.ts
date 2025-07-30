@@ -5,7 +5,7 @@
 import packageInfo from '../../package.json';
 
 export const environment = {
-  hostURL: 'https://localhost:7069/api',
+  hostURL: 'https://localhost:7183/api/',
   //hostURL: 'http://14.195.169.226/GLSAgentAPI/api',
   //hostURL: 'http://192.168.0.77/GLSAgentAPI/api',
   appVersion: packageInfo.version,

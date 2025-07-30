@@ -59,9 +59,9 @@ export class AgentDashboardComponent implements OnInit {
       const userStr = localStorage.getItem('user');
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       this.agentId=user.userId
-    this.walletService.getWalletBalance().subscribe((data: WalletBalanceResponse) => {
-    this.walletDetails = data;
-  });
+  //   this.walletService.getWalletBalance().subscribe((data: WalletBalanceResponse) => {
+  //   this.walletDetails = data;
+  // });
 this.getlist();
   
   
@@ -88,16 +88,16 @@ this.paymentData = res;
     return this.accountsForm.get('accounts') as FormArray;
   }
 
-  fetchCustomer(panNo: string) {
-    const params = { pan: panNo };
-    this.nsdlService.fetchCustomers(params).subscribe({
-      next: (response: any) => {
-        this.response = response;
-        this.populateAccountsForm(response.custdetails);
-      },
-      error: (error: any) => this.toastr.error(error)
-    });
-  }
+  // fetchCustomer(panNo: string) {
+  //   const params = { pan: panNo };
+  //   this.nsdlService.fetchCustomers(params).subscribe({
+  //     next: (response: any) => {
+  //       this.response = response;
+  //       this.populateAccountsForm(response.custdetails);
+  //     },
+  //     error: (error: any) => this.toastr.error(error)
+  //   });
+  // }
 
   populateAccountsForm(data: any[]) {
     const controlArray = data.map(item =>
