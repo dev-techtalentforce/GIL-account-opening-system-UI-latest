@@ -42,3 +42,11 @@ export interface LoginResponse {
   token: string;
   response: UserLoginResponseDto;
 }
+
+export interface ResetPassword {
+  userId?: number;
+  email: string;
+  token?: string;
+  SendDate?: Date;
+  Status?:any;
+}

@@ -82,7 +82,7 @@
         </form>
         <p class="mb-2 text-muted">
           Forgot password?
-          <a [routerLink]="['/login']">Forget Password</a>
+          <a style="cursor: pointer; color: #111; font-weight: 600;" (click)="openForgotPassword()">Forget Password</a>
         </p>
         <p class="mb-0 text-muted">
           Don’t have an account?
@@ -103,7 +103,13 @@
     <div class="modal-body">
       <div class="form-group">
         <div class="input-group">
-          <input type="email" id="forgotEmail" formControlName="forgotEmail" class="form-control" />
+          <input
+            type="email"
+            id="forgotEmail"
+            formControlName="forgotEmail"
+            class="form-control"
+            placeholder="Email"
+          />
         </div>
         <div class="col-auto">
           <span class="text-start text-danger">

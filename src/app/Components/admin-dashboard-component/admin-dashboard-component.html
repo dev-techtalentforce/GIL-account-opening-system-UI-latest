@@ -20,7 +20,7 @@
                     <tbody>
                         @for ( agent of rowData; track agent.userId) {
                         <tr>
-                            <td>{{ agent.userId }}</td>
+                            <td><a (click)="OpenModalAgentDetails(agent.userId)" class="cursor">{{ agent.userId }}</a></td>
                             <td>{{ agent.firstName }}</td>
                             <td>{{ agent.email }}</td>
                             <td>{{ agent.mobile }}</td>

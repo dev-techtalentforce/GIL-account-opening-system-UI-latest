@@ -101,9 +101,17 @@ login() {
   onForgotPassword(modal: NgbModalRef) {
     this.forgotSubmitted = true;
     if (this.forgotPasswordForm.valid) {
-      const email = this.forgotPasswordForm.get('forgotEmail')?.value;
-      this.toastr.success(`Reset link sent to: ${email}`);
-      modal.close();
+      const Email = this.forgotPasswordForm.get('forgotEmail')?.value;
+      const payload = { Email };
+      this.authService.resetForgotPassword(payload).subscribe({
+        next: (response:any) => {
+          this.toastr.success(`Reset link sent to: ${Email}`);
+          modal.close();
+        },
+        error: (err:any) => {
+          this.toastr.error("Failed to reject user.");
+        }
+      });
     } else {
       this.toastr.error('Please enter a valid email.');
     }

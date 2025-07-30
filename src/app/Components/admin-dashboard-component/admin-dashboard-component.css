@@ -2,3 +2,8 @@
     background-color: #3F4D67; 
     color: white;
 }
+
+.cursor {
+    text-decoration: underline !important;
+    cursor: pointer;
+}

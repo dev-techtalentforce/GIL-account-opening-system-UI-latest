@@ -22,14 +22,19 @@ export class ResetPasswordComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router,
-    private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
+  ) {}
 
-  ) { }
 
   ngOnInit(): void {
-    debugger
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
+    if (this.token != undefined) {
+
+    }
+    else {
+      this.router.navigate(['./login']);
+    }
     this.resetForm = this.fb.group(
       {
         newPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -72,39 +77,66 @@ export class ResetPasswordComponent implements OnInit {
     const userStr = localStorage.getItem('user'); // Replace 'user' with your actual key
   let userId: number | null = null;
 
-  if (userStr) {
-    try {
-      const user = JSON.parse(userStr);
-      userId = user?.userId;
-    } catch (e) {
-      console.error('Failed to parse user data from localStorage', e);
-      this.toastr.error('Invalid user session. Please log in again.');
-      this.router.navigate(['/login']);
-      return;
-    }
-  }
+    const body = {
+      Token: this.token,
+      Password: this.resetForm.value.newPassword
+    };
 
-  if (!userId) {
-    this.toastr.error('User ID not found. Please log in again.');
-    this.router.navigate(['/login']);
-    return;
-  }
-const payload = {
-    userId: userId,
-    passwordHash: this.resetForm.value.newPassword
-  };
+    this.authService.updatePassword(body).subscribe({
+      next: (response:any) => {
+        if (response) {
+          this.router.navigate(['/login'])
+        }
+        else {
+          this.toastr.error("Failed to reject user.");
+        }
+      },
+      error: (err:any) => {
+        this.toastr.error("Failed to reject user.");
+      }
+    });
 
-  // ✅ Step 3: Call API
-  this.authService.UpdateUserPassword(payload).subscribe({
-    next: (res) => {
-      this.toastr.success('Password has been reset successfully.');
-      this.router.navigate(['/login']);
-    },
-    error: (err) => {
-      console.error('Reset password failed:', err);
-      this.toastr.error('Failed to reset password. Please try again.');
-    }
-  });
+    // console.log('Submitted:', body);
+    // this.router.navigate(['/login']);
+
+    // Uncomment when ready
+    // this.http.post('/api/auth/reset-password', body).subscribe({
+    //   next: () => this.router.navigate(['/login']),
+    //   error: () => alert('Failed to reset password.')
+    // });
+//   if (userStr) {
+//     try {
+//       const user = JSON.parse(userStr);
+//       userId = user?.userId;
+//     } catch (e) {
+//       console.error('Failed to parse user data from localStorage', e);
+//       this.toastr.error('Invalid user session. Please log in again.');
+//       this.router.navigate(['/login']);
+//       return;
+//     }
+//   }
+
+//   if (!userId) {
+//     this.toastr.error('User ID not found. Please log in again.');
+//     this.router.navigate(['/login']);
+//     return;
+//   }
+// const payload = {
+//     userId: userId,
+//     passwordHash: this.resetForm.value.newPassword
+//   };
+
+//   // ✅ Step 3: Call API
+//   this.authService.UpdateUserPassword(payload).subscribe({
+//     next: (res) => {
+//       this.toastr.success('Password has been reset successfully.');
+//       this.router.navigate(['/login']);
+//     },
+//     error: (err) => {
+//       console.error('Reset password failed:', err);
+//       this.toastr.error('Failed to reset password. Please try again.');
+//     }
+//   });
   }
 
 }
