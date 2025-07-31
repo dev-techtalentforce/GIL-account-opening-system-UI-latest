@@ -130,42 +130,54 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    debugger
-    this.submitted = true;
+  debugger;
+  this.submitted = true;
+  const form = this.registrationForm.value;
 
-    const controls = this.registrationForm.controls;
-    if (this.registrationForm.invalid) {
-      Object.keys(controls).forEach((controlName) =>
-        controls[controlName].markAsTouched()
-      );
-      return;
-    }
-
-    // if (this.registrationForm?.invalid) {
-    //   this.registrationForm?.markAllAsTouched();
-    //   return;
-    // }
-
-    const payload = this.registrationForm.value;
-    console.log("registration payload", payload)
-
-    this.agentRegister.register(payload).subscribe({
-      next: (response: any) => {
-        if (response == false) {
-          alert("User already Exist")
-        }
-        else {
-          this.toastr.success('Registration successful');
-          this.registrationForm.reset();
-          this.submitted = false;
-        }
-
-      },
-      error: (error: any) => {
-        this.toastr.error(error.message || 'Registration failed');
-      }
-    });
+  if (this.registrationForm.invalid) {
+    Object.keys(form).forEach((controlName) =>
+      form[controlName].markAsTouched()
+    );
+    return;
   }
+
+  const payload:any = {
+    userId: '', 
+    firstName: form.firstName,
+    lastName: form.lastName,
+    email: form.email,
+    passwordHash: form.passwordHash,
+    roleId:1,
+    isActive: true,
+    //modifiedAt: new Date(), 
+    refreshToken: '', 
+    refreshTokenExpiryTime: new Date(), 
+    mobile: form.mobile,
+    panCard: form.panCard,
+    referralCode: form.referralCode,
+    address: form.address,
+    //status: true, 
+    //blockStatus: 0 
+  };
+
+  console.log("registration payload", payload);
+
+  this.agentRegister.register(payload).subscribe({
+    next: (response: any) => {
+      if (response === false) {
+        alert("User already exists");
+      } else {
+        this.toastr.success('Registration successful');
+        this.registrationForm.reset();
+        this.submitted = false;
+      }
+    },
+    error: (error: any) => {
+      this.toastr.error(error.message || 'Registration failed');
+    }
+  });
+}
+
 togglePassword() {
     this.showPassword = !this.showPassword;
   }

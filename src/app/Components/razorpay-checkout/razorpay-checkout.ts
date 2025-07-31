@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 declare var Razorpay: any;
+import {environment }  from '../../../environments/environment'
+
 
 @Component({
   selector: 'app-razorpay-checkout',
@@ -12,6 +14,8 @@ declare var Razorpay: any;
   styleUrl: './razorpay-checkout.css'
 })
 export class RazorpayCheckout implements OnInit {
+      private baseUrl = `${environment.hostURL}`;
+
     @Input() initialPaymentData!: {
     orderId: string;
     amount: number;
@@ -50,7 +54,7 @@ export class RazorpayCheckout implements OnInit {
     const payload = this.checkoutForm.value;
     console.log('Submitting payload:', payload);
 
-    this.http.post('https://localhost:7183/api/Payments/verify', payload).subscribe({
+    this.http.post(`${this.baseUrl}Payments/verify`, payload).subscribe({
       next: () => this.toastr.success('Payment data submitted successfully!'),
       error: () => this.toastr.error('Error submitting payment data.')
     });

@@ -14,11 +14,19 @@ import { Toast, ToastrService } from 'ngx-toastr';
 export class BcAgentRegistration implements OnInit {
   agentForm!: FormGroup;
   showTerminalDetails = false;
+  agentId: any;
 
   constructor(private fb: FormBuilder, private agentService: BcAgentService, private toastr: ToastrService,
   ) { }
 
    ngOnInit(): void {
+
+      const userStr = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.agentId = user.userId
+
+   
+
     this.agentForm = this.fb.group({
       channelid: ['lfbpWjegXHwnnirQOlYP'],
       appid: ['com.jarviswebbc.nsdlpb'],
@@ -111,7 +119,7 @@ export class BcAgentRegistration implements OnInit {
       appid: transformedValues.appid,
       partnerid: transformedValues.partnerid,
       bcid: "1577",
-      bcagentid: "GILgj1001",
+      bcagentid: this.agentId,
       bcagentname: transformedValues.bcagentname,
       middlename: transformedValues.middlename,
       lastname: transformedValues.lastname,
@@ -138,14 +146,17 @@ export class BcAgentRegistration implements OnInit {
       productdetails: transformedValues.productdetails,
       terminaldetails: transformedValues.terminaldetails,
       agenttype: transformedValues.agenttype,
-      agentbcid: "GILgj1001",
+      agentbcid: "1577",
       token: transformedValues.token,
       signcs: transformedValues.signcs,
     };
 
     this.agentService.registerAgent(payload).subscribe({
       next: (res) => {
-        this.toastr.success("Agent registered successfully");
+        if(res.respcode=="99")
+        this.toastr.error("Agent registered UnSuccessful for",res.response);
+      else
+         this.toastr.success("Agent Register Successful")
         console.log('Success:', res);
       },
       error: (err) => {
@@ -159,7 +170,7 @@ export class BcAgentRegistration implements OnInit {
   const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months start at 0!
   const dd = String(date.getDate()).padStart(2, '0');
   const yyyy = date.getFullYear();
-  return `${mm}/${dd}/${yyyy}`;
+  return `${dd}/${mm}/${yyyy}`;
 }
 
 
