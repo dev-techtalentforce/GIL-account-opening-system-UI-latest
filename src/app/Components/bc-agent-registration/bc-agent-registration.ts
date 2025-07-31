@@ -32,21 +32,21 @@ export class BcAgentRegistration implements OnInit {
       appid: ['com.jarviswebbc.nsdlpb'],
       partnerid: ['wpemmjhKus'],
       bcid: [''],
-      bcagentid: [''],
-      bcagentname: ['', Validators.required],
+      bcagentid: [this.agentId],
+      bcagentname: [user.firstName, Validators.required],
       middlename: ['', Validators.required],
-      lastname: ['', Validators.required],
+      lastname: [user.lastName, Validators.required],
       companyname: ['', Validators.required],
-      address: ['', Validators.required],
+      address: [user.address, Validators.required],
       statename: ['', Validators.required],
       cityname: ['', Validators.required],
       district: ['', Validators.required],
       area: ['', Validators.required],
       pincode: ['', Validators.required],
-      mobilenumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      mobilenumber: [user.mobile, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       telephone: [''],
       alternatenumber: [''],
-      emailid: ['', [Validators.required, Validators.email]],
+      emailid: [user.email, [Validators.required, Validators.email]],
       dob: ['', Validators.required],
       shopaddress: ['', Validators.required],
       shopstate: ['', Validators.required],
@@ -54,7 +54,7 @@ export class BcAgentRegistration implements OnInit {
       shopdistrict: ['', Validators.required],
       shoparea: ['', Validators.required],
       shoppincode: ['', Validators.required],
-      pancard: ['', [
+      pancard: [user.pancard, [
         Validators.required,
         Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)
       ]],
@@ -118,7 +118,7 @@ export class BcAgentRegistration implements OnInit {
       channelid: transformedValues.channelid,
       appid: transformedValues.appid,
       partnerid: transformedValues.partnerid,
-      bcid: "1577",
+      bcid: "1516",
       bcagentid: this.agentId,
       bcagentname: transformedValues.bcagentname,
       middlename: transformedValues.middlename,
@@ -146,17 +146,19 @@ export class BcAgentRegistration implements OnInit {
       productdetails: transformedValues.productdetails,
       terminaldetails: transformedValues.terminaldetails,
       agenttype: transformedValues.agenttype,
-      agentbcid: "1577",
+      agentbcid: "1516",
       token: transformedValues.token,
       signcs: transformedValues.signcs,
     };
 
     this.agentService.registerAgent(payload).subscribe({
       next: (res) => {
-        if(res.respcode=="99")
-        this.toastr.error("Agent registered UnSuccessful for",res.response);
-      else
-         this.toastr.success("Agent Register Successful")
+        if(res.respcode){
+         const errorMessage = `${res.response} - ${res.agentData.bcagentregistrationres.description}`;
+         this.toastr.success(errorMessage);
+        } 
+      // else
+      //    this.toastr.success("Agent Register Successful")
         console.log('Success:', res);
       },
       error: (err) => {

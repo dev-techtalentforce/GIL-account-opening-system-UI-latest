@@ -16,6 +16,9 @@ export interface UserLoginResponseDto {
   referralCode: string;
   roleId: number;
   nsdl_status: number;
+  mobile:string;
+  Pancard:string;
+  Address:string
 }
 
 export interface User {

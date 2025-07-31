@@ -116,7 +116,7 @@ this.paymentData = res;
   }
 
   openAppInNewTab() {
-    this.router.navigate(['/add-balance']);
+    this.router.navigate(['/account-open']);
   }
 
 
