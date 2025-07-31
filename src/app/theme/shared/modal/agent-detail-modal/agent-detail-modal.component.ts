@@ -15,7 +15,7 @@ export class AgentDetailModalComponent {
   constructor(
     public dialogRef: MatDialogRef<AgentDetailModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      debugger
+      this.dialogRef.updateSize('600px', '650px');
     }
 
   onNoClick(): void {

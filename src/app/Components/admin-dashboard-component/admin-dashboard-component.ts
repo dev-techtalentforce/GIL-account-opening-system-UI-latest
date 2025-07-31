@@ -96,7 +96,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  OpenModalAgentDetails(userId: number) {
+  OpenModalAgentDetails(userId: string) {
     const payload = { userId };
     this.commonService.AgentDetail(payload).subscribe({
       next: (response:any) => {
@@ -109,7 +109,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   PaymentByAgentId(userId: any, agentResponse: any) {
-    const agentId = 1;
+    const agentId = userId;
     this.walletService.getPaymentsByAgentId(agentId).subscribe({
       next: (data) => {
         this.paymentData = data;
