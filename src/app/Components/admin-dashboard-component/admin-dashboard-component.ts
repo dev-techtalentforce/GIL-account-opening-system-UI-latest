@@ -96,7 +96,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  OpenModalAgentDetails(userId: number) {
+  OpenModalAgentDetails(userId: string) {
     const payload = { userId };
     this.commonService.AgentDetail(payload).subscribe({
       next: (response:any) => {
@@ -109,7 +109,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   PaymentByAgentId(userId: any, agentResponse: any) {
-    const agentId = 1;
+    const agentId = userId;
     this.walletService.getPaymentsByAgentId(agentId).subscribe({
       next: (data) => {
         this.paymentData = data;
@@ -126,11 +126,14 @@ export class AdminDashboardComponent implements OnInit {
         // console.log('Credits:', this.credits);
 
         // modal
-        const dialogRef = this.dialog.open(AgentDetailModalComponent, {
-          width: '90%',
-          height: '70%',
-          data: {userId: userId, agetDetailData: agentResponse, agentPaymentData: this.paymentData}
-        });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.height = '400px'; // Set a fixed height
+        dialogConfig.width = '600px';  // Set a fixed width
+        dialogConfig.maxHeight = '80vh'; // Set a maximum height relative to viewport
+        dialogConfig.maxWidth = '90vw';  // Set a maximum width relative to viewport
+        dialogConfig.data = {userId: userId, agetDetailData: agentResponse, agentPaymentData: this.paymentData};
+
+        const dialogRef = this.dialog.open(AgentDetailModalComponent, dialogConfig);
 
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');

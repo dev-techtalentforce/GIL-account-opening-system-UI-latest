@@ -41,7 +41,8 @@ export class WalletService {
   
 
   getPaymentsByAgentId(agentId: any){
-    return this.http.get(`${this.baseUrl}Payments/GetByAgentId?agentId=${agentId}`);
+    //return this.http.get(`${this.baseUrl}Payments/GetByAgentId?agentId=${agentId}`);
+    return this.http.get(`${this.baseUrl}Payments/${agentId}`);
   }
 
 
