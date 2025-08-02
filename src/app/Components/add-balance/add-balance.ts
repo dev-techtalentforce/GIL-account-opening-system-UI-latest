@@ -92,7 +92,7 @@ export class AddBalance implements OnInit {
 
 
   onSubmit(): void {
-    debugger
+     
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -103,7 +103,7 @@ export class AddBalance implements OnInit {
       agentID: this.agentId,
       amount,
     };
-debugger
+ 
     this.walletService.initiatePayment(payload).subscribe(
       (response: any) => {
 

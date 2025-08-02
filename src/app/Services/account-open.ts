@@ -11,7 +11,7 @@ export class AccountOpen {
     // private baseUrl = 'https://localhost:7183/api/AccountOpen';
      constructor(private http: HttpClient) {}
 
-   insertAccount(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/AccountOpen/insert`, data);
+   insertAccount(data: any){
+    return this.http.post(`${this.baseUrl}AccountOpen/insert`, data);
   }
 }

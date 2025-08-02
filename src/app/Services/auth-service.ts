@@ -43,8 +43,12 @@ export class AuthService {
   getAllRegistrationList(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}Users/GetAllRegistrationList`);
   }
+
+  GetAgentLoginData(id:string){
+      return this.http.get(`${this.baseUrl}Users/GetAgentLoginData/${id}`); 
+  }
   login(credentials: { email: string; password: string }): Observable<LoginResponse> {
-    debugger
+     
     const payload = {
       Email: credentials.email,
       PasswordHash: credentials.password

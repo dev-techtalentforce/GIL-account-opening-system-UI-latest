@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, Observable, throwError,map } from 'rxjs';
 // import { AccountOpenDetails } from '../Models/account-open-details'
-import { User } from '../Models/user.model';
+import { User, UsersResponseList } from '../Models/user.model';
 
 
 @Injectable({
@@ -25,13 +25,14 @@ export class AgentService {
     // const apiUrl = `${this.host}/agent/getAgentById`;
     return this.http.get(`${this.baseUrl}/agent/getAgentById`);
   }
-   getAllRegistrationList(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}Users/GetAllAgentList`);
-  }
-   getAgentAllList(): Observable<User[]> {
+  //  getAllRegistrationList(): Observable<User[]> {
+  //   return this.http.get<User[]>(`${this.baseUrl}Users/GetAllAgentList`);
+  // }
+   getAgentAllList(): Observable<UsersResponseList[]> {
 
-    debugger
-    return this.http.get<User[]>(`${this.baseUrl}Users/GetAllAgentList`);
+     
+    return this.http.get<UsersResponseList[]>(`${this.baseUrl}Users/GetAllAgentList`);
+    
   }
   registerBCAgent(agentData : any) {
     // const apiUrl = `${this.baseUrl}/agent/registerBCAgent`;
@@ -43,7 +44,7 @@ export class AgentService {
 
 
 //    getAllAgentList() {
-// debugger
+//  
 //     const apiUrl = `${this.host}/Users/GetAllAgentList`;
 //     return this.http.get(apiUrl);
 //   }

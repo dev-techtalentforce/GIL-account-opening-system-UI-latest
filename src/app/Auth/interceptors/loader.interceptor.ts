@@ -12,7 +12,7 @@ export const loaderInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error) => {
-      debugger;
+       ;
       loader.hide();
       if (error.status === 401) {
          authService.logout();

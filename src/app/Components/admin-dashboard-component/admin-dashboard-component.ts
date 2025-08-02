@@ -36,12 +36,12 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    debugger;
+     ;
     this.loadAgents();
   }
 
   loadAgents() {
-    debugger;
+     ;
     this.agentService.getAgentAllList().subscribe({
       next: (response:any) => {
         this.rowData = response;
@@ -80,7 +80,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onBlockToggle(user: any) {
-  debugger
+   
     const newBlockStatus = user.blockStatus === 0 ? 1 : 0;
     const email =  user.email;
     const status=false;

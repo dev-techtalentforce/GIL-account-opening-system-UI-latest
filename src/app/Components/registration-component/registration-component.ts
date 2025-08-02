@@ -130,7 +130,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
-  debugger;
+   ;
   this.submitted = true;
   const form = this.registrationForm.value;
 
@@ -170,6 +170,7 @@ export class RegistrationComponent implements OnInit {
         this.toastr.success('Registration successful');
         this.registrationForm.reset();
         this.submitted = false;
+        this.router.navigate(['/login'])
       }
     },
     error: (error: any) => {

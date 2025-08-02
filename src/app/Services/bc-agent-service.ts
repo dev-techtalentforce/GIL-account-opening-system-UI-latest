@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BcAgentRegistration } from '../Models/BcAgentRegistration.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {environment }  from '../../environments/environment'
 
 
@@ -18,5 +18,10 @@ export class BcAgentService {
 
   registerAgent(data: BcAgentRegistration): Observable<any> {
     return this.http.post(`${this.baseUrl}BcAgentRegistration/register`, data);
+  }
+
+  getRegisterAgentById(id: string){
+    // const params = new HttpParams().set('id', id);
+     return this.http.get(`${this.baseUrl}BcAgentRegistration/AgentId/${id}`);
   }
 }

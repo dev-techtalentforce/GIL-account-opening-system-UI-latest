@@ -4,10 +4,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { BcAgentService } from '../../Services/bc-agent-service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { json } from 'stream/consumers';
+import { AuthService } from '../../Services/auth-service';
 
 @Component({
   selector: 'app-bc-agent-registration',
- imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './bc-agent-registration.html',
   styleUrl: './bc-agent-registration.css'
 })
@@ -15,17 +18,28 @@ export class BcAgentRegistration implements OnInit {
   agentForm!: FormGroup;
   showTerminalDetails = false;
   agentId: any;
+  nsdl_status: any;
 
-  constructor(private fb: FormBuilder, private agentService: BcAgentService, private toastr: ToastrService,
-  ) { }
+  constructor(private fb: FormBuilder, private agentService: BcAgentService, private toastr: ToastrService, private router: Router, private authservice: AuthService) { }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
+    ;
 
-      const userStr = localStorage.getItem('user');
+    const userStr = localStorage.getItem('user');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.agentId = user.userId
+    //set new nsdl agent register data
+    this.agentService.getRegisterAgentById(this.agentId).subscribe({
+      next: (res) => {
+        localStorage.setItem('NsdlRegisterAgentData', JSON.stringify(res));
+        console.log('Record stored in localStorage:', res);
+      }
+    });
+    //get new nsdl register agent data.
+    const nsdlAgent = localStorage.getItem('NsdlRegisterAgentData');
+    const NsdlRegisterAgentData = JSON.parse(localStorage.getItem('NsdlRegisterAgentData') || '{}');
 
-   
+
 
     this.agentForm = this.fb.group({
       channelid: ['lfbpWjegXHwnnirQOlYP'],
@@ -153,13 +167,26 @@ export class BcAgentRegistration implements OnInit {
 
     this.agentService.registerAgent(payload).subscribe({
       next: (res) => {
-        if(res.respcode){
-         const errorMessage = `${res.response} - ${res.agentData.bcagentregistrationres.description}`;
-         this.toastr.success(errorMessage);
-        } 
-      // else
-      //    this.toastr.success("Agent Register Successful")
-        console.log('Success:', res);
+        if (res.respcode) {
+          const errorMessage = `${res.response} - ${res.agentData.bcagentregistrationres.description}`;
+          this.toastr.success(errorMessage);
+
+
+          this.router.navigate(['/agent-dashboard']);
+
+          //  this.authservice.GetAgentLoginData(this.agentId).subscribe({
+          //   next:(res)=>{
+          //     localStorage.setItem('NsdlStatus', JSON.stringify(res));
+          //   console.log('Record stored in localStorage:', res);
+          //   }
+          //  });
+          console.log("registerNSDL Agent details per agent id >>>")
+        }
+        // else
+        //    this.toastr.success("Agent Register Successful")
+        // console.log('Success:', res);
+
+
       },
       error: (err) => {
         this.toastr.error("Registration failed");
@@ -168,12 +195,12 @@ export class BcAgentRegistration implements OnInit {
     });
   }
   formatDateToMMDDYYYY(dateInput: any): string {
-  const date = new Date(dateInput);
-  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months start at 0!
-  const dd = String(date.getDate()).padStart(2, '0');
-  const yyyy = date.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
-}
+    const date = new Date(dateInput);
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months start at 0!
+    const dd = String(date.getDate()).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+  }
 
 
   resetForm() {
