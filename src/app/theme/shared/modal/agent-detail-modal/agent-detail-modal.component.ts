@@ -16,7 +16,7 @@ export class AgentDetailModalComponent {
     public dialogRef: MatDialogRef<AgentDetailModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       //dialogRef.disableClose = true;
-      this.dialogRef.updateSize('600px', '650px');
+      this.dialogRef.updateSize('700px', '650px');
     }
 
   onNoClick(): void {
