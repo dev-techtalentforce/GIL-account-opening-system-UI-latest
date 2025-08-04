@@ -44,7 +44,7 @@ ngOnInit() {
    const userData = localStorage.getItem('user');
   if (userData) {
     const user = JSON.parse(userData);
-    this.role = user.roleName;
+    this.role = user.roleId == 0 ? "Admin": "Agent";
   }
 
 

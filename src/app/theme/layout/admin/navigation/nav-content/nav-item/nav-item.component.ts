@@ -7,14 +7,35 @@ import { SharedModule } from '../../../../../shared/shared.module';
 @Component({
   selector: 'app-nav-item',
   standalone: true,
-  imports: [CommonModule, SharedModule, RouterModule,NgIf],
+  imports: [CommonModule, SharedModule, RouterModule, NgIf],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })
 export class NavItemComponent {
   private location = inject(Location);
 
-  @Input() item!: NavigationItem;
+  @Input() item!: any;
+
+
+  ngOnInit(){
+    debugger;
+    let nsdlStatus:any = localStorage.getItem("NsdlStatus");
+    nsdlStatus = JSON.parse(nsdlStatus);
+    if(nsdlStatus.nsdl_status==0){
+      if(this.item.id == "nsdl-registration"){
+        this.item = {...this.item, disabled : false}
+      } else {
+        this.item = {...this.item, disabled : true}
+      }
+    } else {
+if(this.item.id == "nsdl-registration"){
+        this.item = {...this.item, disabled : true}
+      } else {
+        this.item = {...this.item, disabled : false}
+      }
+    }
+    console.log("this.item", this.item);
+  }
 
   closeOtherMenu(event: MouseEvent) {
     const ele = event.target as HTMLElement;

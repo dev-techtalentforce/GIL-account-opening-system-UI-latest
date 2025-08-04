@@ -1,9 +1,9 @@
-<ng-container *ngIf="!item.hidden">
+<ng-container *ngIf="!item.hidden"  >
   <!-- Internal Link -->
   <li *ngIf="item.url && !item.external"
-      [ngClass]="item.classes"
-      routerLinkActive="active">
-    <a class="nav-link"
+      [ngClass]="item.disabled ? 'disabled' : item.classes"
+      routerLinkActive="active" >
+    <a class="nav-link" disabled="item.disabled"
        [target]="item.target ? '_blank' : '_self'"
        [routerLink]="[item.url]"
        (click)="closeOtherMenu($event)">
@@ -19,8 +19,8 @@
 
   <!-- External Link -->
   <li *ngIf="item.url && item.external"
-      [ngClass]="item.classes">
-    <a [target]="item.target ? '_blank' : '_self'"
+     [ngClass]="item.disabled ? 'disabled' : item.classes">
+    <a [target]="item.target ? '_blank' : '_self'" 
        [href]="item.url">
       <ng-container *ngTemplateOutlet="itemIcon"></ng-container>
       <span *ngIf="item.icon; else directTitle" class="pcoded-mtext">

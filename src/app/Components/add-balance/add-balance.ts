@@ -39,6 +39,7 @@ export class AddBalance implements OnInit {
     private modalService: NgbModal
   ) { }
   ngOnInit(): void {
+    debugger
     const userStr = localStorage.getItem('user');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.agentId = user.userId
@@ -53,8 +54,8 @@ export class AddBalance implements OnInit {
   }
 
   getlist() {
-    const id = this.agentId
-    this.walletService.getPaymentsByAgentId(id).subscribe((res: any) => {
+    // const id = this.agentId
+    this.walletService.getPaymentsByAgentId(this.agentId).subscribe((res: any) => {
       this.paymentData = res;
       console.log("load agent data by id >>>>>>>", this.paymentData)
 
